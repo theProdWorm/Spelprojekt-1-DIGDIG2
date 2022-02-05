@@ -2,7 +2,6 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "Spell", menuName = "Spell", order = 0)]
 public class Spell : ScriptableObject {
-    [Tooltip("The amount of initial damage the spell does.")]
     public float damage;
 
     [Tooltip("How much the spell will slow affected enemies (%)")]
@@ -15,7 +14,4 @@ public class Spell : ScriptableObject {
     public float stunDuration;
 
     public Element element;
-
-    [Tooltip("How much of the element is applied to affected enemies.")]
-    public float elementMagnitude;
 }

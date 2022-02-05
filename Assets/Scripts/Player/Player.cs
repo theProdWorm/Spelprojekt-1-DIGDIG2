@@ -2,8 +2,7 @@ using Aarthificial.Reanimation;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour {
-    public float speed;
+public class Player : Entity {
     public bool diagonalMovement;
 
     public KeyCode[ ] leftKeys;
