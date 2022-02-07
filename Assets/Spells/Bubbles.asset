@@ -12,5 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fc8e7ad143b2c54cbf46ae6f0d1ab93, type: 3}
   m_Name: Bubbles
   m_EditorClassIdentifier: 
-  damage: 0
+  damage: 1
+  slowAmount: 0
+  slowDuration: 0
+  stunDuration: 0
   element: 0

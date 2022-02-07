@@ -46,7 +46,7 @@ public class Player : Entity {
                 inputDirs.Add((Direction) i);
             }
             else if (KeyUp(directionKeys[i]) && inputDirs.Contains((Direction) i)) {
-                inputDirs.Remove((Direction) i);
+                inputDirs.RemoveAll(x => x == (Direction) i);
             }
         }
     }
