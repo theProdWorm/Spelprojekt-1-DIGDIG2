@@ -2,5 +2,6 @@
     water = 0,
     earth = 1,
     fire = 2,
-    air = 3
+    air = 3,
+    physical = 4
 }

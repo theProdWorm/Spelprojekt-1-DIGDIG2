@@ -3,17 +3,18 @@ using UnityEngine;
 
 public abstract class Entity : MonoBehaviour {
     #region INITIAL STATS
-    public float initialHealth;
+    public float maxHealth;
     public float initialSpeed;
     public float initialDamage;
     [Tooltip("Maximum amount of time (in seconds) that this entity can stay affected by an element without triggering an effect.")]
     public float elementalResistance;
+    public float initialDefense;
     #endregion
 
     #region CURRENT STATS
-    protected float maxHealth;
     protected float currentHealth;
     protected float currentSpeed;
+    protected float currentDefense;
     protected float slowDuration;
     protected float stunDuration;
     #endregion
@@ -22,8 +23,7 @@ public abstract class Entity : MonoBehaviour {
     private readonly List<Effect> effects = new List<Effect>( );
 
     private void Start ( ) {
-        maxHealth = initialHealth;
-        currentHealth = initialHealth;
+        currentHealth = maxHealth;
 
         currentSpeed = initialSpeed;
     }
@@ -44,7 +44,7 @@ public abstract class Entity : MonoBehaviour {
         }
     }
 
-    public void TakeHit (Spell spell) {
+    public void TakeHit (EntityAction spell) {
         currentHealth -= spell.damage;
 
         affectedBy[spell.element] = true;
