@@ -221,9 +221,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lerpPoint: {fileID: 2095922592}
-  player: {fileID: 0}
-  mouseDistanceMod: 0
   speed: 4
+  offset: 1.8
 --- !u!1 &945377757
 GameObject:
   m_ObjectHideFlags: 0
@@ -256,9 +255,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4780e9514d7fef842946f7964aab3272, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 6
-  damage: 0
-  maxHealth: 0
+  initialHealth: 0
+  initialSpeed: 1
+  initialDamage: 0
   elementalResistance: 0
   diagonalMovement: 0
   leftKeys: 610000006a000000
@@ -416,4 +415,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 945377758}
-  offset: 2
+  cam: {fileID: 519420033}

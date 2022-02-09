@@ -4,13 +4,13 @@ using UnityEngine;
 public class Spell : ScriptableObject {
     public float damage;
 
-    [Tooltip("How much the spell will slow affected enemies (%)")]
+    [Tooltip("Slow amount (%)")]
     public float slowAmount;
 
-    [Tooltip("How long affected enemies will remain slowed (seconds)")]
+    [Tooltip("Slow duration (seconds)")]
     public float slowDuration;
 
-    [Tooltip("How long affected enemies will remain stunned (seconds)")]
+    [Tooltip("Stun duration (seconds)")]
     public float stunDuration;
 
     public Element element;

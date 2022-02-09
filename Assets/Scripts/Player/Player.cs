@@ -35,7 +35,7 @@ public class Player : Entity {
         Vector2 _move = !diagonalMovement ? TranslateDirection(facing) : 
             new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
-        transform.position += new Vector3(_move.x, _move.y) * speed * Time.deltaTime;
+        transform.position += new Vector3(_move.x, _move.y) * currentSpeed * Time.deltaTime;
 
         if (facing != Direction.none) reanimator.Set("movement", (int) facing);
     }
