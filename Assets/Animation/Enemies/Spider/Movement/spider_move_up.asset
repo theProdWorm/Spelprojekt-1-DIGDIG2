@@ -10,18 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 02f1da0b6abdb7d45aa4315eccab639b, type: 3}
-  m_Name: player_walk_up
+  m_Name: spider_move_up
   m_EditorClassIdentifier: 
-  cels:
-  - sprite: {fileID: 21300000, guid: 9fc5a1dd1e5814141911ebd9e51a1905, type: 3}
-    drivers:
-      keys: []
-      values: 
+  cels: []
   controlDriver:
-    name: 
+    name: spider_move_up
     autoIncrement: 0
     percentageBased: 0
-    guid: 2dc0b323-e559-4e9d-a3f3-677c209cfc72
+    guid: b508ad33-885b-432f-a4a8-18085ec1b959
   drivers:
     keys: []
     values: 

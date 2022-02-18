@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : Entity {
-    public bool diagonalMovement;
-
     public KeyCode[ ] leftKeys;
     public KeyCode[ ] rightKeys;
     public KeyCode[ ] downKeys;
@@ -15,29 +13,28 @@ public class Player : Entity {
     [HideInInspector]
     public Direction facing;
 
-    private Reanimator reanimator;
-
-    private void Start ( ) {
-        reanimator = GetComponent<Reanimator>( );
+    protected override void Start ( ) {
+        base.Start( );
 
         inputDirs = new List<Direction>( );
 
         directionKeys = new KeyCode[ ][ ] { leftKeys, rightKeys, downKeys, upKeys };
     }
 
-    private void Update ( ) {
-        reanimator.Set("root", 0);
+    protected override void Update ( ) {
+        base.Update( );
+
+        reanimator.Set("player_root", 0);
 
         GetInput( );
         
         facing = inputDirs.Count != 0 ? inputDirs[^1] : Direction.none;
 
-        Vector2 _move = !diagonalMovement ? TranslateDirection(facing) : 
-            new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        Vector2 _move = TranslateDirection(facing);
 
-        transform.position += new Vector3(_move.x, _move.y) * currentSpeed * Time.deltaTime;
+        transform.position += new Vector3(_move.x, _move.y) * c_speed * Time.deltaTime;
 
-        if (facing != Direction.none) reanimator.Set("movement", (int) facing);
+        if (facing != Direction.none) reanimator.Set("player_movement", (int) facing);
     }
 
     private void GetInput ( ) {

@@ -6,7 +6,9 @@ public class Spider : Entity {
 
     private float jumpCooldown;
 
-    private void Update ( ) {
+    protected override void Update ( ) {
+        base.Update( );
+
         if (jumpCooldown > 0) {
             jumpCooldown -= Time.deltaTime;
             return;

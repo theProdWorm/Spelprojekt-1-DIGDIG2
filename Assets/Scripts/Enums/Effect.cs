@@ -1,4 +1,4 @@
-﻿enum Effect {
+﻿public enum Effect {
     drenched = 0,
     burning = 1,
     boiling = 2,

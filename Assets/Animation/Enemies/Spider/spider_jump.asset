@@ -9,19 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02f1da0b6abdb7d45aa4315eccab639b, type: 3}
-  m_Name: player_walk_left
+  m_Script: {fileID: 11500000, guid: c1b935bc3bfd4944ab93c4a574dfd0da, type: 3}
+  m_Name: spider_jump
   m_EditorClassIdentifier: 
-  cels:
-  - sprite: {fileID: 21300000, guid: f06fc7f38c180d54b8ccc9ad26454472, type: 3}
-    drivers:
-      keys: []
-      values: 
+  nodes: []
   controlDriver:
-    name: 
+    name: spider_jump
     autoIncrement: 0
     percentageBased: 0
-    guid: 876c685a-073e-4c1c-8948-2bf96a2f8c7d
+    guid: 6b3af355-64ec-4bb5-987a-703e8ba705d6
   drivers:
     keys: []
     values: 
