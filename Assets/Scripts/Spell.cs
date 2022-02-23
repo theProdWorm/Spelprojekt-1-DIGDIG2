@@ -10,6 +10,8 @@ public abstract class Spell : MonoBehaviour {
     [Tooltip("(seconds)")]
     public float slowDuration;
 
+    public bool stackSlow;
+
     [Tooltip("(seconds)")]
     public float stunDuration;
 
