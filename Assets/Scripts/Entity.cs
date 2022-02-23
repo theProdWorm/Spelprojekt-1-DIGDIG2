@@ -65,6 +65,8 @@ public abstract class Entity : MonoBehaviour {
     }
 
     private void TakeHit (Spell spell) {
+
+
         c_hp -= spell.damage;
 
         affectedBy[spell.element] = true;
@@ -77,6 +79,19 @@ public abstract class Entity : MonoBehaviour {
             Die( );
         }
     }
+
+    /// <summary>
+    /// Returns the appropriate elemental resistance according to the input element.
+    /// </summary>
+    /// <param name="element"></param>
+    private float GetER (Element element) => element switch {
+        Element.water => c_waterRes,
+        Element.earth => c_earthRes,
+        Element.fire => c_fireRes,
+        Element.air => c_airRes,
+        Element.physical => c_physRes,
+        _ => c_physRes
+    };
 
     protected void OnTriggerEnter2D (Collider2D collision) {
         if (collision.CompareTag("Spell")) {

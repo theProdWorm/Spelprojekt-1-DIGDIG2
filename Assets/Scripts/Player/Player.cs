@@ -27,14 +27,15 @@ public class Player : Entity {
         reanimator.Set("player_root", 0);
 
         GetInput( );
-        
+
         facing = inputDirs.Count != 0 ? inputDirs[^1] : Direction.none;
 
         Vector2 _move = TranslateDirection(facing);
 
         transform.position += new Vector3(_move.x, _move.y) * c_speed * Time.deltaTime;
 
-        if (facing != Direction.none) reanimator.Set("player_movement", (int) facing);
+        if (facing != Direction.none)
+            reanimator.Set("player_movement", (int) facing);
     }
 
     private void GetInput ( ) {
@@ -64,14 +65,11 @@ public class Player : Entity {
         return false;
     }
 
-    public static Vector2 TranslateDirection (Direction dir) {
-        return dir switch
-        {
-            Direction.left => Vector2.left,
-            Direction.right => Vector2.right,
-            Direction.down => Vector2.down,
-            Direction.up => Vector2.up,
-            _ => Vector2.zero
-        };
-    }
+    public static Vector2 TranslateDirection (Direction dir) => dir switch {
+        Direction.left => Vector2.left,
+        Direction.right => Vector2.right,
+        Direction.down => Vector2.down,
+        Direction.up => Vector2.up,
+        _ => Vector2.zero
+    };
 }
