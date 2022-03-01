@@ -1,7 +1,8 @@
 using UnityEngine;
 using Aarthificial.Reanimation;
 
-public abstract class Spell : MonoBehaviour {
+[CreateAssetMenu(fileName = "New spell", menuName = "Spell")]
+public class Spell : ScriptableObject {
     public float damage;
 
     [Tooltip("(%)")]
@@ -16,10 +17,4 @@ public abstract class Spell : MonoBehaviour {
     public float stunDuration;
 
     public Element element;
-
-    protected Reanimator reanimator;
-
-    protected void Start ( ) {
-        reanimator = GetComponent<Reanimator>( );
-    }
 }

@@ -1,4 +1,3 @@
-using Aarthificial.Reanimation;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -37,7 +36,9 @@ public class Player : Entity {
         if (facing != Direction.none)
             reanimator.Set("player_movement", (int) facing);
     }
-
+    /// <summary>
+    /// Adds or removes Direction elements from the inputDirs list according to input.
+    /// </summary>
     private void GetInput ( ) {
         for (int i = 0; i < directionKeys.Length; i++) {
             if (KeyDown(directionKeys[i])) {
@@ -65,6 +66,11 @@ public class Player : Entity {
         return false;
     }
 
+    /// <summary>
+    /// Returns an appropriate Vector2 according to the input Direction.
+    /// </summary>
+    /// <param name="dir"></param>
+    /// <returns></returns>
     public static Vector2 TranslateDirection (Direction dir) => dir switch {
         Direction.left => Vector2.left,
         Direction.right => Vector2.right,

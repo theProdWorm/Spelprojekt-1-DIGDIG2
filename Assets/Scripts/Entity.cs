@@ -6,7 +6,6 @@ public abstract class Entity : MonoBehaviour {
     #region INITIAL STATS
     public float i_hp;
     public float i_speed;
-    public float i_dmg;
 
     public float i_waterRes;
     public float i_earthRes;
@@ -31,8 +30,12 @@ public abstract class Entity : MonoBehaviour {
 
     protected Reanimator reanimator;
 
-    protected readonly Dictionary<Element, bool> affectedBy = new Dictionary<Element, bool>( );
+    protected const float affectDur = 3.0f;
+
+    protected readonly Dictionary<Element, float> affectedBy = new Dictionary<Element, float>( );
     protected readonly List<Effect> effects = new List<Effect>( );
+
+    protected bool shouldReturn;
 
     protected virtual void Start ( ) {
         c_hp = i_hp;
@@ -48,6 +51,7 @@ public abstract class Entity : MonoBehaviour {
     }
 
     protected virtual void Update ( ) {
+        // reduce slow duration, reset if zero
         if (slowDur > 0) {
             slowDur -= Time.deltaTime;
 
@@ -56,23 +60,34 @@ public abstract class Entity : MonoBehaviour {
             }
         }
 
+        // reduce stun duration, force return if greater than zero
         if (stunDur > 0) {
             stunDur -= Time.deltaTime;
 
-            if (stunDur > 0) return;
+            if (stunDur > 0) {
+                shouldReturn = true;
+                return;
+            }
         }
+
+        foreach (var el in affectedBy.Keys) {
+            if (affectedBy[el] > 0) {
+                affectedBy[el] -= Time.deltaTime;
+            }
+        }
+
+        shouldReturn = false;
     }
 
-    private void TakeHit (Spell spell) {
-        float damage = spell.damage;
-        damage -= damage * (20 / (20 + GetER(spell.element)));
+    public void TakeHit (Spell spell) {
+        float damage = spell.damage * (20.0f / (20.0f + (float) GetER(spell.element)));
 
         c_hp -= damage;
         if (c_hp <= 0) {
             Die( );
         }
 
-        affectedBy[spell.element] = true;
+        affectedBy[spell.element] = affectDur;
 
         if (!spell.stackSlow)
             c_speed = i_speed;
@@ -81,6 +96,8 @@ public abstract class Entity : MonoBehaviour {
 
         slowDur = spell.slowDuration;
         stunDur = spell.stunDuration;
+
+        print($"{name} has {c_hp} hp and {c_speed} speed");
     }
 
     private void Heal (float magnitude) => c_hp = Mathf.Clamp(c_hp, c_hp, c_hp + magnitude);
@@ -98,7 +115,7 @@ public abstract class Entity : MonoBehaviour {
         _ => c_physRes
     };
 
-    protected void OnTriggerEnter2D (Collider2D collision) {
+    protected virtual void OnTriggerEnter2D (Collider2D collision) {
         if (collision.CompareTag("Spell")) {
             var spell = collision.GetComponent<Spell>( );
 
@@ -106,7 +123,9 @@ public abstract class Entity : MonoBehaviour {
         }
     }
 
-    protected void Die ( ) {
+    protected virtual void Die ( ) {
         reanimator.Set("root", 1);
+
+        print($"{name} is dead!");
     }
 }
