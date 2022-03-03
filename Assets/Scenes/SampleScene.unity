@@ -253,16 +253,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8383c838bd325ec44813b570a6b9d1f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  i_hp: 0
-  i_spd: 0
-  i_dmg: 0
+  i_hp: 10
+  i_speed: 3
   i_waterRes: 0
   i_earthRes: 0
   i_fireRes: 0
-  i_airRes: 0
+  i_airRes: 2
   i_physRes: 0
-  jumpDistance: 0
-  initialJumpCooldown: 0
+  maxJumpDistance: 5
+  jumpSpeedMod: 3
+  initialJumpCooldown: 3
+  jumpSpell: {fileID: 11400000, guid: 552293fde301067449d18d2ddb597188, type: 2}
 --- !u!212 &606192056
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -340,7 +341,6 @@ GameObject:
   m_Component:
   - component: {fileID: 945377762}
   - component: {fileID: 945377761}
-  - component: {fileID: 945377760}
   - component: {fileID: 945377759}
   - component: {fileID: 945377758}
   m_Layer: 0
@@ -362,9 +362,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4780e9514d7fef842946f7964aab3272, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  i_hp: 0
-  i_spd: 1
-  i_dmg: 0
+  i_hp: 20
+  i_speed: 5
   i_waterRes: 0
   i_earthRes: 0
   i_fireRes: 0
@@ -391,26 +390,6 @@ MonoBehaviour:
   renderer: {fileID: 945377761}
   fps: 12
   temporaryDrivers: []
---- !u!95 &945377760
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 945377757}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 281cf20b34c93324ab0449e4273c9a23, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!212 &945377761
 SpriteRenderer:
   m_ObjectHideFlags: 0

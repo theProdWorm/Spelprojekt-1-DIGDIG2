@@ -48,6 +48,10 @@ public abstract class Entity : MonoBehaviour {
         c_physRes = i_physRes;
 
         reanimator = GetComponent<Reanimator>( );
+
+        for (int i = 0; i < 5; i++) {
+            affectedBy.Add((Element) i, 0.0f);
+        }
     }
 
     protected virtual void Update ( ) {
@@ -70,13 +74,23 @@ public abstract class Entity : MonoBehaviour {
             }
         }
 
-        foreach (var el in affectedBy.Keys) {
-            if (affectedBy[el] > 0) {
-                affectedBy[el] -= Time.deltaTime;
-            }
+        for (int i = 0; i < 5; i++) {
+            print((Element) i);
+            if (affectedBy[(Element) i] > 0)
+                affectedBy[(Element) i] -= Mathf.Clamp(Time.deltaTime, 0, affectDur);
         }
 
         shouldReturn = false;
+    }
+
+    protected Vector2 GetDomAxis (Vector2 diagonal) {
+        float angle = Mathf.Atan2(diagonal.y, diagonal.x);
+
+        float x = Mathf.Cos(angle);
+        float y = Mathf.Sin(angle);
+
+        // return a new vector with only the dominant axis
+        return Mathf.Abs(x) > Mathf.Abs(y) ? new Vector2(x, 0) : new Vector2(0, y);
     }
 
     public void TakeHit (Spell spell) {

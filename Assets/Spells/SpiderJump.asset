@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2417d018d3cbf0e4ca2e89848939692a, type: 3}
   m_Name: SpiderJump
   m_EditorClassIdentifier: 
-  damage: 0
-  slowAmount: 0
-  slowDuration: 0
-  stackSlow: 0
+  damage: 5
+  slowAmount: 40
+  slowDuration: 1
+  stackSlow: 1
   stunDuration: 0
-  element: 0
+  element: 4
