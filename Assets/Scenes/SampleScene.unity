@@ -262,7 +262,7 @@ MonoBehaviour:
   i_physRes: 0
   maxJumpDistance: 5
   jumpSpeedMod: 3
-  initialJumpCooldown: 3
+  initialJumpCooldown: 4
   jumpSpell: {fileID: 11400000, guid: 552293fde301067449d18d2ddb597188, type: 2}
 --- !u!212 &606192056
 SpriteRenderer:
