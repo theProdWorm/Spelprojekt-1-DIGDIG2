@@ -2,6 +2,16 @@ using System.Collections.Generic;
 using Aarthificial.Reanimation;
 using UnityEngine;
 
+public class SlowEffect {
+    public SlowEffect (float amount, float duration) {
+        this.amount = amount;
+        this.duration = duration;
+    }
+
+    public float amount;
+    public float duration;
+}
+
 public abstract class Entity : MonoBehaviour {
     #region INITIAL STATS
     public float i_hp;
@@ -25,7 +35,7 @@ public abstract class Entity : MonoBehaviour {
     protected float c_physRes;
     #endregion
 
-    protected float slowDur;
+    protected List<SlowEffect> slowEffects;
     protected float stunDur;
 
     protected Reanimator reanimator;
@@ -33,7 +43,6 @@ public abstract class Entity : MonoBehaviour {
     protected const float affectDur = 3.0f;
 
     protected readonly Dictionary<Element, float> affectedBy = new Dictionary<Element, float>( );
-    protected readonly List<Effect> effects = new List<Effect>( );
 
     protected bool shouldReturn;
 
@@ -47,6 +56,8 @@ public abstract class Entity : MonoBehaviour {
         c_airRes = i_airRes;
         c_physRes = i_physRes;
 
+        slowEffects = new List<SlowEffect>( );
+
         reanimator = GetComponent<Reanimator>( );
 
         for (int i = 0; i < 5; i++) {
@@ -56,12 +67,23 @@ public abstract class Entity : MonoBehaviour {
 
     protected virtual void Update ( ) {
         // reduce slow duration, reset if zero
-        if (slowDur > 0) {
-            slowDur -= Time.deltaTime;
+        if (slowEffects.Count > 0) {
+            float newSpeed = i_speed;
 
-            if (slowDur <= 0) {
-                c_speed = i_speed;
+            for (int i = 0; i < slowEffects.Count; i++) {
+                slowEffects[i].duration -= Time.deltaTime;
+
+                if (slowEffects[i].duration <= 0) {
+                    slowEffects.RemoveAt(i--);
+                    continue;
+                }
+
+                newSpeed -= i_speed * slowEffects[i].amount;
             }
+
+            newSpeed = Mathf.Clamp(newSpeed, i_speed * 0.1f, i_speed);
+
+            c_speed = newSpeed;
         }
 
         // reduce stun duration, force return if greater than zero
@@ -103,18 +125,16 @@ public abstract class Entity : MonoBehaviour {
 
         affectedBy[spell.element] = affectDur;
 
-        if (!spell.stackSlow)
-            c_speed = i_speed;
+        if (!spell.stackSlow) {
+            slowEffects.Clear( );
+        }
 
-        c_speed -= c_speed * (spell.slowAmount / 100);
+        slowEffects.Add(new SlowEffect(spell.slowAmount, spell.slowDuration));
 
-        slowDur = spell.slowDuration;
         stunDur = spell.stunDuration;
 
         print($"{name} has {c_hp} hp and {c_speed} speed");
     }
-
-    private void Heal (float magnitude) => c_hp = Mathf.Clamp(c_hp, c_hp, c_hp + magnitude);
 
     /// <summary>
     /// Returns the appropriate elemental resistance according to the input element.

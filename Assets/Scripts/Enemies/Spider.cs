@@ -36,8 +36,7 @@ public class Spider : Entity {
 
         if (jumpCooldown <= 0) {
             if (distance <= maxJumpDistance) {
-            Jump( );
-
+                Jump( );
             }
             else {
                 CloseDistance( );
@@ -56,7 +55,11 @@ public class Spider : Entity {
             jumpCooldown = initialJumpCooldown;
             jumping = false;
 
-            player.TakeHit(jumpSpell);
+            var collider = GetComponent<Collider2D>( );
+
+            if (collider.IsTouching(player.GetComponent<Collider2D>( ))) {
+                player.TakeHit(jumpSpell);
+            }
         }
     }
 
@@ -91,4 +94,6 @@ public class Spider : Entity {
 
         transform.position += move;
     }
+
+
 }
