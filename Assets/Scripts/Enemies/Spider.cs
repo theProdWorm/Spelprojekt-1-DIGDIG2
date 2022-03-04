@@ -55,9 +55,9 @@ public class Spider : Entity {
             jumpCooldown = initialJumpCooldown;
             jumping = false;
 
-            var collider = GetComponent<Collider2D>( );
-
-            if (collider.IsTouching(player.GetComponent<Collider2D>( ))) {
+            float distance = Vector2.Distance(transform.position, player.transform.position);
+            
+            if (distance <= jumpSpell.AoE) {
                 player.TakeHit(jumpSpell);
             }
         }
@@ -94,6 +94,4 @@ public class Spider : Entity {
 
         transform.position += move;
     }
-
-
 }
