@@ -34,7 +34,15 @@ public class Spider : Entity {
         if(!jumping) targetPos = player.transform.position;
         distance = Vector2.Distance(targetPos, transform.position);
 
-        if (jumpCooldown <= 0 && distance <= maxJumpDistance) Jump( );
+        if (jumpCooldown <= 0) {
+            if (distance <= maxJumpDistance) {
+            Jump( );
+
+            }
+            else {
+                CloseDistance( );
+            }
+        }
         else MoveEvasive( );
     }
 
@@ -65,13 +73,21 @@ public class Spider : Entity {
             move = oppDir * c_speed * Time.deltaTime;
         }
         else {
-            bool switchDir = Random.Range(0, 100) == 1;
+            bool switchDir = Random.Range(0, 100) == 1; // 1% chance of switching direction each frame
             if (switchDir) moveDir = -moveDir;
 
             var perp = Vector2.Perpendicular(oppDir);
 
             move = perp * moveDir * c_speed * Time.deltaTime;
         }
+
+        transform.position += move;
+    }
+
+    private void CloseDistance ( ) {
+        Vector2 towardPlayer = GetDomAxis(targetPos - transform.position);
+
+        Vector3 move = towardPlayer * c_speed * Time.deltaTime;
 
         transform.position += move;
     }

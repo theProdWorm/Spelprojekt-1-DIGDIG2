@@ -222,7 +222,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lerpPoint: {fileID: 2095922592}
   speed: 4
-  offset: 1.8
+  offset: 0
 --- !u!1 &606192054
 GameObject:
   m_ObjectHideFlags: 0
