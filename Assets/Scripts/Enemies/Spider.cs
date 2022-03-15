@@ -30,15 +30,19 @@ public class Spider : Entity {
         if (jumpCooldown > 0) {
             jumpCooldown -= Time.deltaTime;
         }
-
-        if (!jumping) targetPos = player.transform.position;
+        
+        if(!jumping) targetPos = player.transform.position;
         distance = Vector2.Distance(targetPos, transform.position);
 
         if (jumpCooldown <= 0) {
-            if (distance <= maxJumpDistance) Jump( );
-            else CloseDistance( );
+            if (distance <= maxJumpDistance) {
+                Jump( );
+            }
+            else {
+                CloseDistance( );
+            }
         }
-        else Juke( );
+        else MoveEvasive( );
     }
 
     private void Jump ( ) {
@@ -51,15 +55,15 @@ public class Spider : Entity {
             jumpCooldown = initialJumpCooldown;
             jumping = false;
 
-            var distance = Vector2.Distance(player.transform.position, transform.position);
-
-            if (distance <= jumpSpell.aoe) {
+            float distance = Vector2.Distance(transform.position, player.transform.position);
+            
+            if (distance <= jumpSpell.AoE) {
                 player.TakeHit(jumpSpell);
             }
         }
     }
 
-    private void Juke ( ) {
+    private void MoveEvasive ( ) {
         var targetPos = player.transform.position;
 
         var distance = Vector2.Distance(targetPos, transform.position);
@@ -72,8 +76,8 @@ public class Spider : Entity {
             move = oppDir * c_speed * Time.deltaTime;
         }
         else {
-            bool switchDir = Mathf.Round(Random.Range(0, 1 / Time.deltaTime)) == 1; // 1% chance of switching direction each frame
-            if (switchDir) SwitchDir( );
+            bool switchDir = Random.Range(0, 100) == 1; // 1% chance of switching direction each frame
+            if (switchDir) moveDir = -moveDir;
 
             var perp = Vector2.Perpendicular(oppDir);
 
@@ -82,8 +86,6 @@ public class Spider : Entity {
 
         transform.position += move;
     }
-
-    public void SwitchDir ( ) => moveDir = -moveDir;
 
     private void CloseDistance ( ) {
         Vector2 towardPlayer = GetDomAxis(targetPos - transform.position);

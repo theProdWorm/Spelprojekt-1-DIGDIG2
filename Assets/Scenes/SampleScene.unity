@@ -185,7 +185,7 @@ Camera:
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
-  m_TargetEye: 0
+  m_TargetEye: 3
   m_HDR: 1
   m_AllowMSAA: 0
   m_AllowDynamicResolution: 0
@@ -222,7 +222,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lerpPoint: {fileID: 2095922592}
   speed: 4
-  offset: 0
+  offset: 1
 --- !u!1 &606192054
 GameObject:
   m_ObjectHideFlags: 0
