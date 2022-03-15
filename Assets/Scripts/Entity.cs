@@ -38,15 +38,16 @@ public abstract class Entity : MonoBehaviour {
     protected List<SlowEffect> slowEffects;
     protected float stunDur;
 
+    protected Rigidbody2D rb;
     protected Reanimator reanimator;
 
     protected const float affectDur = 3.0f;
-
     protected readonly Dictionary<Element, float> affectedBy = new Dictionary<Element, float>( );
 
     protected bool shouldReturn;
 
     protected virtual void Start ( ) {
+        #region initialize stats
         c_hp = i_hp;
         c_speed = i_speed;
 
@@ -55,9 +56,11 @@ public abstract class Entity : MonoBehaviour {
         c_fireRes = i_fireRes;
         c_airRes = i_airRes;
         c_physRes = i_physRes;
+        #endregion
 
         slowEffects = new List<SlowEffect>( );
 
+        rb = GetComponent<Rigidbody2D>( );
         reanimator = GetComponent<Reanimator>( );
 
         for (int i = 0; i < 5; i++) {

@@ -6,7 +6,7 @@ public class Spell : ScriptableObject {
     public float damage;
 
     [Tooltip("Area of effect in world coordinates.")]
-    public float AoE;
+    public float aoe;
 
     [Tooltip("Amount slowed in percentage. Set to zero if the spell does not apply slowness.")]
     public float slowAmount;
@@ -15,6 +15,7 @@ public class Spell : ScriptableObject {
     public float slowDuration;
 
     [Tooltip(@"True: Keep current slowness effects but apply this as well. The duration of stacked slow effects is calculated individually.
+
 False: Override existing slowness effects; only this slowness will be prominent.")]
     public bool stackSlow;
 

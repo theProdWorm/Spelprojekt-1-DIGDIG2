@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: SpiderJump
   m_EditorClassIdentifier: 
   damage: 5
+  aoe: 1
   slowAmount: 40
   slowDuration: 1
   stackSlow: 1
