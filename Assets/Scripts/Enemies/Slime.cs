@@ -9,15 +9,41 @@ public class Slime : Entity {
     public Size size;
 
     public float partnerSearchRadius;
+    [HideInInspector]
+    public Slime[] chosenPartners;
 
     private float lastSplit; // time since last split
+
+    [HideInInspector]
+    public Vector2 i_splitForceVector;
+    [HideInInspector]
+    public float splitForceTimer;
     
     protected override void Start ( ) {
         base.Start( );
+
+        chosenPartners = new Slime[2];
+
+        print(chosenPartners.Length);
     }
 
     protected override void Update ( ) {
         base.Update( );
+
+        if(splitForceTimer > 0) {
+            splitForceTimer -= Time.deltaTime;
+            splitForceTimer = Mathf.Clamp01(splitForceTimer);
+
+            rb.velocity = i_splitForceVector * splitForceTimer;
+            return;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Return) && size > 0)
+            Split( );
+        else if (Input.GetKey(KeyCode.F))
+            TryFuse( );
+
+        return;
 
         bool success = false;
         if (lastSplit > 0 && size < Size.large) success = TryFuse( );
@@ -27,7 +53,6 @@ public class Slime : Entity {
 
     private void TryConsume ( ) {
         
-
     }
 
     private void Nibble ( ) {
@@ -53,7 +78,19 @@ public class Slime : Entity {
 
         meetingPoint /= slimesInRadius.Length;
 
-        transform.position = Vector2.MoveTowards(transform.position, meetingPoint, c_speed);
+        transform.position = Vector2.MoveTowards(transform.position, meetingPoint, c_speed * Time.deltaTime);
+
+        if (transform.position != (Vector3) meetingPoint) return true;
+
+        for (int i = 0; i < slimesInRadius.Length; i++) {
+            for (int j = 0; j < 2; j++) {
+                if (slimesInRadius[i].chosenPartners[j] != null
+                    || chosenPartners[j] != null) continue;
+
+                slimesInRadius[i].chosenPartners[j] = this;
+                chosenPartners[j] = slimesInRadius[i];
+            }
+        }
 
         return true;
     }
@@ -65,15 +102,19 @@ public class Slime : Entity {
     private void Split ( ) {
         for (int i = 0; i < 3; i++) {
             float angle = Random.Range(0, 2 * Mathf.PI);
-            float force = Random.Range(1.0f, 2.0f);
+            float force = 4.0f;
 
             Vector2 forceVector = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * force;
 
             var newSlime = Instantiate(gameObject).GetComponent<Slime>( );
 
             newSlime.size = size - 1;
-            newSlime.rb.AddForce(forceVector);
+
+            newSlime.i_splitForceVector = forceVector;
+            newSlime.splitForceTimer = 1.0f;
         }
+
+        Destroy(gameObject);
     }
 
     protected override void Die ( ) {
