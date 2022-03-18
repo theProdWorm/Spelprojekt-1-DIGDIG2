@@ -72,6 +72,8 @@ public class Player : Entity {
         }
 
         print(spell.name);
+
+        selectedElements.Clear( );
     }
 
     #region Handle input
