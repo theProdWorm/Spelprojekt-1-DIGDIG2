@@ -27,21 +27,26 @@ public class Player : Entity {
 
         reanimator.Set("player_root", 0);
 
-        GetInput( );
+        Move( );
+    }
+
+    private void Move ( ) {
+        GetMoveInput( );
 
         facing = inputDirs.Count != 0 ? inputDirs[^1] : Direction.none;
 
-        Vector2 _move = TranslateDirection(facing);
+        Vector3 _move = TranslateDirection(facing) * c_speed * Time.deltaTime;
 
-        transform.position += new Vector3(_move.x, _move.y) * c_speed * Time.deltaTime;
+        transform.position += _move;
 
         if (facing != Direction.none)
             reanimator.Set("player_movement", (int) facing);
     }
+
     /// <summary>
     /// Adds or removes Direction elements from the inputDirs list according to input.
     /// </summary>
-    private void GetInput ( ) {
+    private void GetMoveInput ( ) {
         for (int i = 0; i < directionKeys.Length; i++) {
             if (KeyDown(directionKeys[i])) {
                 inputDirs.Add((Direction) i);
