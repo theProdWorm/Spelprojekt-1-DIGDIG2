@@ -23,8 +23,6 @@ public class Slime : Entity {
         base.Start( );
 
         chosenPartners = new Slime[2];
-
-        print(chosenPartners.Length);
     }
 
     protected override void Update ( ) {

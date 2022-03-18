@@ -100,7 +100,6 @@ public abstract class Entity : MonoBehaviour {
         }
 
         for (int i = 0; i < 5; i++) {
-            print((Element) i);
             if (affectedBy[(Element) i] > 0)
                 affectedBy[(Element) i] -= Mathf.Clamp(Time.deltaTime, 0, affectDur);
         }
@@ -119,14 +118,14 @@ public abstract class Entity : MonoBehaviour {
     }
 
     public void TakeHit (Spell spell) {
-        float damage = spell.damage * (20.0f / (20.0f + (float) GetER(spell.element)));
+        float damage = spell.damage * (20.0f / (20.0f + (float) GetER(spell.dominantElement)));
 
         c_hp -= damage;
         if (c_hp <= 0) {
             Die( );
         }
 
-        affectedBy[spell.element] = affectDur;
+        affectedBy[spell.dominantElement] = affectDur;
 
         if (!spell.stackSlow) {
             slowEffects.Clear( );

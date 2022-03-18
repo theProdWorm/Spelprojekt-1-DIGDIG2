@@ -8,17 +8,23 @@ public class Player : Entity {
     public KeyCode[ ] downKeys;
     public KeyCode[ ] upKeys;
     private KeyCode[ ][ ] directionKeys;
-    private List<Direction> inputDirs = new List<Direction>( );
+    private readonly List<Direction> inputDirs = new List<Direction>( );
+
+    public KeyCode[ ] castKeys;
 
     [HideInInspector]
     public Direction facing;
 
-    private bool[ ] elementSelected = new bool[4];
+    private readonly List<Element> selectedElements = new List<Element>(5);
+
+    private Spellbook spellbook;
 
     protected override void Start ( ) {
         base.Start( );
 
         directionKeys = new KeyCode[ ][ ] { leftKeys, rightKeys, downKeys, upKeys };
+
+        spellbook = FindObjectOfType<Spellbook>( );
     }
 
     protected override void Update ( ) {
@@ -29,6 +35,10 @@ public class Player : Entity {
         Move( );
 
         SelectElement( );
+
+        if (KeyDown(castKeys)) {
+            CastSpell( );
+        }
     }
 
     private void Move ( ) {
@@ -44,10 +54,24 @@ public class Player : Entity {
             reanimator.Set("player_movement", (int) facing);
     }
 
-    private void ResetSelectedElements ( ) {
-        for (int i = 0; i < elementSelected.Length; i++) {
-            elementSelected[i] = false;
+    private void CastSpell ( ) {
+        Spell spell = spellbook.GetSpell(selectedElements);
+
+        if (spell is null) {
+            string n_combo = "";
+            for (int i = 0; i < selectedElements.Count; i++) {
+                n_combo += selectedElements[i];
+
+                if (i < selectedElements.Count - 1)
+                    n_combo += " + ";
+            }
+
+            print("combo does not exist: " + n_combo);
+
+            return;
         }
+
+        print(spell.name);
     }
 
     #region Handle input
@@ -56,8 +80,10 @@ public class Player : Entity {
     /// </summary>
     private void SelectElement ( ) {
         for (int i = 0; i < 4; i++) {
+            if (selectedElements.Contains((Element) i)) continue;
+
             if (Input.GetKeyDown((KeyCode) (i + 49))) {
-                elementSelected[i] = true;
+                selectedElements.Add((Element) i);
             }
         }
     }

@@ -18,4 +18,5 @@ MonoBehaviour:
   slowDuration: 1
   stackSlow: 1
   stunDuration: 0
-  element: 4
+  dominantElement: 4
+  combo: 
