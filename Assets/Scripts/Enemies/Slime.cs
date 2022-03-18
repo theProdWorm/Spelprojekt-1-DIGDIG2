@@ -10,7 +10,7 @@ public class Slime : Entity {
 
     public float partnerSearchRadius;
     [HideInInspector]
-    public Slime[] chosenPartners;
+    public Slime[ ] chosenPartners;
 
     private float lastSplit; // time since last split
 
@@ -18,7 +18,7 @@ public class Slime : Entity {
     public Vector2 i_splitForceVector;
     [HideInInspector]
     public float splitForceTimer;
-    
+
     protected override void Start ( ) {
         base.Start( );
 
@@ -30,7 +30,7 @@ public class Slime : Entity {
     protected override void Update ( ) {
         base.Update( );
 
-        if(splitForceTimer > 0) {
+        if (splitForceTimer > 0) {
             splitForceTimer -= Time.deltaTime;
             splitForceTimer = Mathf.Clamp01(splitForceTimer);
 
@@ -52,7 +52,7 @@ public class Slime : Entity {
     }
 
     private void TryConsume ( ) {
-        
+
     }
 
     private void Nibble ( ) {
@@ -85,8 +85,9 @@ public class Slime : Entity {
         for (int i = 0; i < slimesInRadius.Length; i++) {
             for (int j = 0; j < 2; j++) {
                 if (slimesInRadius[i].chosenPartners[j] != null
-                    || chosenPartners[j] != null) continue;
+                    || chosenPartners[j] != null) continue; // this or target already has partner in slot 'i' (override forbidden)
 
+                // binds this slime and target slime as partners
                 slimesInRadius[i].chosenPartners[j] = this;
                 chosenPartners[j] = slimesInRadius[i];
             }
@@ -112,6 +113,8 @@ public class Slime : Entity {
 
             newSlime.i_splitForceVector = forceVector;
             newSlime.splitForceTimer = 1.0f;
+
+            newSlime.lastSplit = 7.0f;
         }
 
         Destroy(gameObject);

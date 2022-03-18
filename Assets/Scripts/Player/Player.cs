@@ -12,6 +12,8 @@ public class Player : Entity {
     [HideInInspector]
     public Direction facing;
 
+    private List<Element> selectedElements = new List<Element>( );
+
     protected override void Start ( ) {
         base.Start( );
 
