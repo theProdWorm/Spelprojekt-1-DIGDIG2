@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,17 +8,15 @@ public class Player : Entity {
     public KeyCode[ ] downKeys;
     public KeyCode[ ] upKeys;
     private KeyCode[ ][ ] directionKeys;
-    private List<Direction> inputDirs;
+    private List<Direction> inputDirs = new List<Direction>( );
 
     [HideInInspector]
     public Direction facing;
 
-    private List<Element> selectedElements = new List<Element>( );
+    private bool[ ] elementSelected = new bool[4];
 
     protected override void Start ( ) {
         base.Start( );
-
-        inputDirs = new List<Direction>( );
 
         directionKeys = new KeyCode[ ][ ] { leftKeys, rightKeys, downKeys, upKeys };
     }
@@ -28,6 +27,8 @@ public class Player : Entity {
         reanimator.Set("player_root", 0);
 
         Move( );
+
+        SelectElement( );
     }
 
     private void Move ( ) {
@@ -43,8 +44,26 @@ public class Player : Entity {
             reanimator.Set("player_movement", (int) facing);
     }
 
+    private void ResetSelectedElements ( ) {
+        for (int i = 0; i < elementSelected.Length; i++) {
+            elementSelected[i] = false;
+        }
+    }
+
+    #region Handle input
     /// <summary>
-    /// Adds or removes Direction elements from the inputDirs list according to input.
+    /// Checks for inputs 1-4 and selects the corresponding element, adding it to the selectedElements list.
+    /// </summary>
+    private void SelectElement ( ) {
+        for (int i = 0; i < 4; i++) {
+            if (Input.GetKeyDown((KeyCode) (i + 49))) {
+                elementSelected[i] = true;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Adds or removes Direction elements from the inputDirs list according to input, using all assigned inputs.
     /// </summary>
     private void GetMoveInput ( ) {
         for (int i = 0; i < directionKeys.Length; i++) {
@@ -85,4 +104,5 @@ public class Player : Entity {
         Direction.up => Vector2.up,
         _ => Vector2.zero
     };
+    #endregion
 }
