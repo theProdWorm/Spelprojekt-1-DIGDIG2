@@ -222,7 +222,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lerpPoint: {fileID: 2095922592}
   speed: 4
-  offset: 1
+  offset: 0
 --- !u!1 &590508725
 GameObject:
   m_ObjectHideFlags: 0
@@ -622,7 +622,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1eccdaba87386546866d5db1a7b01a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spells: []
+  spells:
+  - {fileID: 11400000, guid: 113928cb4ae77b34894b8dedc6aef13e, type: 2}
+  - {fileID: 11400000, guid: dc73cd1f2a119ae43ae0ffdfe40edb27, type: 2}
+  - {fileID: 11400000, guid: 7d8edce1697edf348a539fc481ab3940, type: 2}
 --- !u!4 &704334166
 Transform:
   m_ObjectHideFlags: 0
@@ -682,6 +685,7 @@ MonoBehaviour:
   rightKeys: 6400000013010000
   downKeys: 7300000012010000
   upKeys: 7700000011010000
+  castKeys: 6b000000
   facing: 0
 --- !u!114 &945377759
 MonoBehaviour:

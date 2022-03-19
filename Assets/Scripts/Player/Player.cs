@@ -67,11 +67,8 @@ public class Player : Entity {
             }
 
             print("combo does not exist: " + n_combo);
-
-            return;
         }
-
-        print(spell.name);
+        else print(spell.name);
 
         selectedElements.Clear( );
     }

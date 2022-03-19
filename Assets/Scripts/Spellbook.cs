@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class Spellbook : MonoBehaviour
@@ -7,10 +6,25 @@ public class Spellbook : MonoBehaviour
     public Spell[ ] spells;
 
     public Spell GetSpell (List<Element> selectedElements) {
-        Element[ ] combo = selectedElements.OrderByDescending(e => e).Reverse( ).ToArray( );
+        if (selectedElements.Count == 0) return null;
 
-        Spell _spell = spells.First(s => Enumerable.SequenceEqual(s.combo, combo));
+        for (int i = 0; i < spells.Length; i++) {
+            bool match = selectedElements.Count == spells[i].combo.Length;
+
+            for (int j = 0; j < spells[i].combo.Length; j++) {
+                bool elementSelected = selectedElements.Contains(spells[i].combo[j]);
+
+                if (!elementSelected) {
+                    match = false;
+                    break;
+                }
+            }
+
+            if (match) {
+                return spells[i];
+            }
+        }
         
-        return _spell;
+        return null;
     }
 }

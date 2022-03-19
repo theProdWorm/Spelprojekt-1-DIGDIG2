@@ -22,7 +22,9 @@ False: Override existing slowness effects; only this slowness will be prominent.
     [Tooltip("Duration of the stun effect. Set to zero if the spell does not stun.")]
     public float stunDuration;
 
+    [Tooltip("Elemental damage type.")]
     public Element dominantElement;
 
+    [Tooltip("Elements used to cast the spell.")]
     public Element[ ] combo;
 }
