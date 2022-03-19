@@ -81,6 +81,8 @@ public class Slime : Entity {
         }
         rendezvous /= rel.Length;
 
+        animator.SetInteger("facing", rendezvous.x - transform.position.x > 0 ? 1 : 0);
+
         // move toward rendezvous
         transform.position = Vector2.MoveTowards(transform.position, rendezvous, c_speed * Time.deltaTime);
         if (transform.position != rendezvous) return true;
