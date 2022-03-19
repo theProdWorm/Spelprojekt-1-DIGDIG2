@@ -8,21 +8,19 @@ public enum Size {
 public class Slime : Entity {
     public Size size;
 
-    public float partnerSearchRadius;
+    public float scanRadius;
     [HideInInspector]
-    public Slime[ ] chosenPartners;
+    public Slime[ ] partners;
 
-    private float lastSplit; // time since last split
+    private float fuseCD;
 
     [HideInInspector]
     public Vector2 i_splitForceVector;
     [HideInInspector]
     public float splitForceTimer;
 
-    protected override void Start ( ) {
-        base.Start( );
-
-        chosenPartners = new Slime[2];
+    private void Awake ( ) {
+        partners = new Slime[2];
     }
 
     protected override void Update ( ) {
@@ -36,15 +34,16 @@ public class Slime : Entity {
             return;
         }
 
+        if (fuseCD > 0)
+            fuseCD -= Time.deltaTime;
+
         if (Input.GetKeyDown(KeyCode.Return) && size > 0)
             Split( );
-        else if (Input.GetKey(KeyCode.F))
+        else if (Input.GetKey(KeyCode.F) && size < Size.large)
             TryFuse( );
 
-        return;
-
         bool success = false;
-        if (lastSplit > 0 && size < Size.large) success = TryFuse( );
+        if (fuseCD <= 0 && size < Size.large) success = TryFuse( );
         else if (size == Size.large) TryConsume( );
         else if (!success) Nibble( );
     }
@@ -58,40 +57,73 @@ public class Slime : Entity {
     }
 
     /// <summary>
-    /// Scans for slimes of the same size to fuse with, picking the center between them all as their meeting point
+    /// Upon finding partners, rendezvous and fuse.
     /// </summary>
     private bool TryFuse ( ) {
-        Slime[ ] slimesInRadius = (from slime in FindObjectsOfType<Slime>( )
-                                   where Vector2.Distance(slime.transform.position, transform.position) <= partnerSearchRadius
-                                   && slime.size == size
-                                   select slime).OrderByDescending(x => Vector2.Distance(x.transform.position, transform.position)).ToArray( );
+        // scans for slimes of the same size within scanRadius (excludes this)
+        Slime[ ] singleSlimes = (from slime in FindObjectsOfType<Slime>( )
+                                   where Vector2.Distance(slime.transform.position, transform.position) <= scanRadius
+                                   && slime.size == size && slime != this
+                                   && slime.partners.All(x => x is null) // no partners
+                                   select slime).OrderByDescending(x => x.fuseCD).Reverse( ).ToArray( );
 
-        if (slimesInRadius.Length < 3) return false;
-
-        Vector2 meetingPoint = Vector2.zero;
-
-        for (int i = 0; i < slimesInRadius.Length; i++) {
-            meetingPoint += (Vector2) slimesInRadius[i].transform.position;
+        if (partners.All(x => x is null)) {
+            if (singleSlimes.Length >= 2)
+                BindPartners(singleSlimes);
+            else return false;
         }
 
-        meetingPoint /= slimesInRadius.Length;
+        Slime[ ] rel = new Slime[ ] { partners[0], partners[1], this };
 
-        transform.position = Vector2.MoveTowards(transform.position, meetingPoint, c_speed * Time.deltaTime);
+        // rendezvous midway between slimes in relationship
+        Vector3 rendezvous = Vector3.zero;
+        for (int i = 0; i < rel.Length; i++) {
+            rendezvous += rel[i].transform.position;
+        }
+        rendezvous /= rel.Length;
 
-        if (transform.position != (Vector3) meetingPoint) return true;
+        // move toward rendezvous
+        transform.position = Vector2.MoveTowards(transform.position, rendezvous, c_speed * Time.deltaTime);
+        if (transform.position != rendezvous) return true;
 
-        for (int i = 0; i < slimesInRadius.Length; i++) {
-            for (int j = 0; j < 2; j++) {
-                if (slimesInRadius[i].chosenPartners[j] != null
-                    || chosenPartners[j] != null) continue; // this or target already has partner in slot 'i' (override forbidden)
+        if (partners.All(slime => slime.transform.position == rendezvous)) {
+            print($"{name} has fused with {rel[0].name} and {rel[1].name}!");
 
-                // binds this slime and target slime as partners
-                slimesInRadius[i].chosenPartners[j] = this;
-                chosenPartners[j] = slimesInRadius[i];
-            }
+            Fuse( );
         }
 
         return true;
+    }
+
+    /// <summary>
+    /// Binds the first two slimes as partners.
+    /// </summary>
+    private void BindPartners (Slime[ ] slimes) {
+        partners[0] = slimes[0];
+        partners[1] = slimes[1];
+
+        slimes[0].partners[0] = this;
+        slimes[0].partners[1] = slimes[1];
+
+        slimes[1].partners[0] = this;
+        slimes[1].partners[1] = slimes[0];
+
+        print($"{name} has chosen {partners[0].name} and {partners[1].name} as its partners!");
+    }
+
+    /// <summary>
+    /// Instantiates a bigger slime and destroys all slimes involved in the fusion.
+    /// </summary>
+    private void Fuse ( ) {
+        var fusion = Instantiate(gameObject).GetComponent<Slime>( );
+
+        ++fusion.size;
+        fusion.fuseCD = 5.0f;
+
+        for (int i = 0; i < partners.Length; i++) {
+            Destroy(partners[i].gameObject);
+        }
+        Destroy(gameObject);
     }
 
     /// <summary>
@@ -101,18 +133,18 @@ public class Slime : Entity {
     private void Split ( ) {
         for (int i = 0; i < 3; i++) {
             float angle = Random.Range(0, 2 * Mathf.PI);
-            float force = 4.0f;
+            float force = 2.0f;
 
             Vector2 forceVector = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * force;
 
             var newSlime = Instantiate(gameObject).GetComponent<Slime>( );
 
-            newSlime.size = size - 1;
+            --newSlime.size;
 
             newSlime.i_splitForceVector = forceVector;
             newSlime.splitForceTimer = 1.0f;
 
-            newSlime.lastSplit = 7.0f;
+            newSlime.fuseCD = 5.0f;
         }
 
         Destroy(gameObject);

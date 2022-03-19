@@ -107,8 +107,9 @@ MonoBehaviour:
   i_airRes: 0
   i_physRes: 2
   size: 2
-  partnerSearchRadius: 10
+  scanRadius: 10
   chosenPartners: []
+  spawnedFusion: 0
   i_splitForceVector: {x: 0, y: 0}
   splitForceTimer: 0
 --- !u!50 &5200396431475930084
