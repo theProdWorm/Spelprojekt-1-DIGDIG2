@@ -110,16 +110,6 @@ public abstract class Entity : MonoBehaviour {
         Instantiate(spell.activated);
     }
 
-    protected Vector2 GetDomAxis (Vector2 diagonal) {
-        float angle = Mathf.Atan2(diagonal.y, diagonal.x);
-
-        float x = Mathf.Cos(angle);
-        float y = Mathf.Sin(angle);
-
-        // return a new vector with only the dominant axis
-        return Mathf.Abs(x) > Mathf.Abs(y) ? new Vector2(x, 0) : new Vector2(0, y);
-    }
-
     public void TakeHit (Spell spell) {
         float damage = spell.damagePerHit * (20.0f / (20.0f + (float) GetER(spell.dominantElement)));
 
@@ -153,6 +143,16 @@ public abstract class Entity : MonoBehaviour {
         Element.physical => c_physRes,
         _ => c_physRes
     };
+
+    protected Vector2 GetDomAxis (Vector2 diagonal) {
+        float angle = Mathf.Atan2(diagonal.y, diagonal.x);
+
+        float x = Mathf.Cos(angle);
+        float y = Mathf.Sin(angle);
+
+        // return a new vector with only the dominant axis
+        return Mathf.Abs(x) > Mathf.Abs(y) ? new Vector2(x, 0) : new Vector2(0, y);
+    }
 
     protected virtual void OnTriggerEnter2D (Collider2D collision) {
         if (collision.CompareTag("Spell")) {
