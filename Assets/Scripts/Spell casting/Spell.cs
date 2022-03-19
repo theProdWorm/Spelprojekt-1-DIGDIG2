@@ -1,5 +1,4 @@
 using UnityEngine;
-using Aarthificial.Reanimation;
 
 [CreateAssetMenu(fileName = "New spell", menuName = "Spell")]
 public class Spell : ScriptableObject {
@@ -27,4 +26,7 @@ False: Override existing slowness effects; only this slowness will be prominent.
 
     [Tooltip("Elements used to cast the spell.")]
     public Element[ ] combo;
+
+    [Tooltip("Object to be instantiated. Always includes a script deriving from ISpell and a Collider2D.")]
+    public GameObject instance;
 }
