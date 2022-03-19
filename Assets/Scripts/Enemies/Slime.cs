@@ -2,7 +2,7 @@ using System.Linq;
 using UnityEngine;
 
 public enum Size {
-    small = 0, medium = 1, large = 2
+    tiny = 0, medium = 1, large = 2
 }
 
 public class Slime : Entity {
@@ -39,8 +39,6 @@ public class Slime : Entity {
 
         if (Input.GetKeyDown(KeyCode.Return) && size > 0)
             Split( );
-        else if (Input.GetKey(KeyCode.F) && size < Size.large)
-            TryFuse( );
 
         bool success = false;
         if (fuseCD <= 0 && size < Size.large) success = TryFuse( );
@@ -63,9 +61,10 @@ public class Slime : Entity {
         // scans for slimes of the same size within scanRadius (excludes this)
         Slime[ ] singleSlimes = (from slime in FindObjectsOfType<Slime>( )
                                    where Vector2.Distance(slime.transform.position, transform.position) <= scanRadius
-                                   && slime.size == size && slime != this
-                                   && slime.partners.All(x => x is null) // no partners
-                                   select slime).OrderByDescending(x => x.fuseCD).Reverse( ).ToArray( );
+                                   && slime.size == size && slime != this // same size and not self
+                                   && slime.partners.All(x => x is null)  // no partners
+                                   && slime.fuseCD <= 0                   // can fuse
+                                   select slime).OrderByDescending(slime => Vector2.Distance(slime.transform.position, transform.position)).Reverse( ).ToArray( );
 
         if (partners.All(x => x is null)) {
             if (singleSlimes.Length >= 2)
@@ -96,7 +95,7 @@ public class Slime : Entity {
     }
 
     /// <summary>
-    /// Binds the first two slimes as partners.
+    /// Binds the first two slimes in 'slimes' as partners.
     /// </summary>
     private void BindPartners (Slime[ ] slimes) {
         partners[0] = slimes[0];
@@ -119,6 +118,9 @@ public class Slime : Entity {
 
         ++fusion.size;
         fusion.fuseCD = 5.0f;
+
+        fusion.name = char.ToUpper($"{fusion.size}"[0]) + $"{fusion.size} slime".Substring(1);
+
 
         for (int i = 0; i < partners.Length; i++) {
             Destroy(partners[i].gameObject);
@@ -145,6 +147,8 @@ public class Slime : Entity {
             newSlime.splitForceTimer = 1.0f;
 
             newSlime.fuseCD = 5.0f;
+
+            newSlime.name = char.ToUpper($"{newSlime.size}"[0]) + $"{newSlime.size} slime".Substring(1);
         }
 
         Destroy(gameObject);
