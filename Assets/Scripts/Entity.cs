@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Aarthificial.Reanimation;
 using UnityEngine;
 
 public class SlowEffect {
@@ -39,7 +38,7 @@ public abstract class Entity : MonoBehaviour {
     protected float stunDur;
 
     protected Rigidbody2D rb;
-    protected Reanimator reanimator;
+    protected Animator animator;
 
     protected const float affectDur = 3.0f;
     protected readonly Dictionary<Element, float> affectedBy = new Dictionary<Element, float>( );
@@ -61,7 +60,7 @@ public abstract class Entity : MonoBehaviour {
         slowEffects = new List<SlowEffect>( );
 
         rb = GetComponent<Rigidbody2D>( );
-        reanimator = GetComponent<Reanimator>( );
+        animator = GetComponent<Animator>( );
 
         for (int i = 0; i < 5; i++) {
             affectedBy.Add((Element) i, 0.0f);
@@ -107,6 +106,10 @@ public abstract class Entity : MonoBehaviour {
         shouldReturn = false;
     }
 
+    protected void CastSpell (Spell spell) {
+        Instantiate(spell.activated);
+    }
+
     protected Vector2 GetDomAxis (Vector2 diagonal) {
         float angle = Mathf.Atan2(diagonal.y, diagonal.x);
 
@@ -118,7 +121,7 @@ public abstract class Entity : MonoBehaviour {
     }
 
     public void TakeHit (Spell spell) {
-        float damage = spell.damage * (20.0f / (20.0f + (float) GetER(spell.dominantElement)));
+        float damage = spell.damagePerHit * (20.0f / (20.0f + (float) GetER(spell.dominantElement)));
 
         c_hp -= damage;
         if (c_hp <= 0) {
@@ -135,7 +138,7 @@ public abstract class Entity : MonoBehaviour {
 
         stunDur = spell.stunDuration;
 
-        print($"{name} has {c_hp} hp and {c_speed} speed");
+        print($"{name} has {c_hp} hp left.");
     }
 
     /// <summary>
@@ -160,7 +163,7 @@ public abstract class Entity : MonoBehaviour {
     }
 
     protected virtual void Die ( ) {
-        reanimator.Set("root", 1);
+        animator.SetBool("dead", true);
 
         print($"{name} is dead!");
     }

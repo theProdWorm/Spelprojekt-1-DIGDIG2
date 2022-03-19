@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -30,8 +29,6 @@ public class Player : Entity {
     protected override void Update ( ) {
         base.Update( );
 
-        reanimator.Set("player_root", 0);
-
         Move( );
 
         SelectElement( );
@@ -51,7 +48,7 @@ public class Player : Entity {
         transform.position += _move;
 
         if (facing != Direction.none)
-            reanimator.Set("player_movement", (int) facing);
+            animator.SetInteger("facing", (int) facing);
     }
 
     private void CastSpell ( ) {
@@ -69,6 +66,8 @@ public class Player : Entity {
             print("combo does not exist: " + n_combo);
         }
         else print(spell.name);
+
+        CastSpell(spell); // from base class Entity
 
         selectedElements.Clear( );
     }
@@ -120,8 +119,6 @@ public class Player : Entity {
     /// <summary>
     /// Returns an appropriate Vector2 according to the input Direction.
     /// </summary>
-    /// <param name="dir"></param>
-    /// <returns></returns>
     public static Vector2 TranslateDirection (Direction dir) => dir switch {
         Direction.left => Vector2.left,
         Direction.right => Vector2.right,
