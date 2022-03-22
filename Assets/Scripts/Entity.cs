@@ -154,17 +154,19 @@ public abstract class Entity : MonoBehaviour {
         return Mathf.Abs(x) > Mathf.Abs(y) ? new Vector2(x, 0) : new Vector2(0, y);
     }
 
+    protected virtual void Die ( ) {
+        animator.SetBool("dead", true);
+
+        print($"{name} is dead!");
+    }
+
     protected virtual void OnTriggerEnter2D (Collider2D collision) {
         if (collision.CompareTag("Spell")) {
             var spell = collision.GetComponent<Spell>( );
 
             TakeHit(spell);
+
+            print($"{name} was hit by {spell.name}!");
         }
-    }
-
-    protected virtual void Die ( ) {
-        animator.SetBool("dead", true);
-
-        print($"{name} is dead!");
     }
 }

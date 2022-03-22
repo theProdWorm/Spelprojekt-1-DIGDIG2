@@ -15,8 +15,6 @@ public class Tornado : MonoBehaviour {
         Direction facing = FindObjectOfType<Player>( ).deltaFacing;
 
         direction = Player.TranslateDirection(facing);
-
-        print(facing);
     }
 
     private void Update ( ) {

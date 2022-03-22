@@ -66,7 +66,7 @@ public class Player : Entity {
                     n_combo += " + ";
             }
 
-            print("combo does not exist: " + n_combo);
+            if (n_combo != "") print("combo does not exist: " + n_combo);
         }
         else {
             print(spell.name);
