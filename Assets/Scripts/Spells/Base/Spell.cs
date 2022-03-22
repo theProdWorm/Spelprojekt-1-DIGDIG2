@@ -5,6 +5,9 @@ public class Spell : ScriptableObject {
     [Tooltip("Some spells hit multiple times. This describes damage done per hit, not in total.")]
     public float damagePerHit;
 
+    [Tooltip("The maximum amount of times this spell can deal damage to a single enemy in one second.")]
+    public float hitFrequency;
+
     [Tooltip("Area of effect in world coordinates.")]
     public float aoe;
 

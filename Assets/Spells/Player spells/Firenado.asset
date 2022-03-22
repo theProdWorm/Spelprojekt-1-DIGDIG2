@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Firenado
   m_EditorClassIdentifier: 
   damagePerHit: 8
+  hitFrequency: 6
   aoe: 3
   slowAmount: 0
   slowDuration: 0

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Sharknado
   m_EditorClassIdentifier: 
   damagePerHit: 4
+  hitFrequency: 6
   aoe: 2
   slowAmount: 50
   slowDuration: 0

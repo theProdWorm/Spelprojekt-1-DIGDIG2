@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Tornado
   m_EditorClassIdentifier: 
   damagePerHit: 2
+  hitFrequency: 6
   aoe: 2
   slowAmount: 30
   slowDuration: 0.4

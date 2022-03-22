@@ -37,6 +37,8 @@ public abstract class Entity : MonoBehaviour {
     protected List<SlowEffect> slowEffects;
     protected float stunDur;
 
+    protected float hitCD;
+
     protected Rigidbody2D rb;
     protected Animator animator;
 
@@ -98,6 +100,9 @@ public abstract class Entity : MonoBehaviour {
             }
         }
 
+        if (hitCD > 0)
+            hitCD -= Time.deltaTime;
+
         for (int i = 0; i < 5; i++) {
             if (affectedBy[(Element) i] > 0)
                 affectedBy[(Element) i] -= Mathf.Clamp(Time.deltaTime, 0, affectDur);
@@ -111,6 +116,8 @@ public abstract class Entity : MonoBehaviour {
     }
 
     public void TakeHit (Spell spell) {
+        if (hitCD > 0) return;
+
         float damage = spell.damagePerHit * (20.0f / (20.0f + (float) GetER(spell.dominantElement)));
 
         c_hp -= damage;
@@ -129,6 +136,8 @@ public abstract class Entity : MonoBehaviour {
         stunDur = spell.stunDuration;
 
         print($"{name} has {c_hp} hp left.");
+
+        hitCD = 1 / spell.hitFrequency;
     }
 
     /// <summary>
@@ -160,7 +169,7 @@ public abstract class Entity : MonoBehaviour {
         print($"{name} is dead!");
     }
 
-    protected virtual void OnTriggerEnter2D (Collider2D collision) {
+    protected virtual void OnTriggerStay2D (Collider2D collision) {
         if (collision.CompareTag("Spell")) {
             Spell spell = collision.GetComponent<ISpell>( ).GetSpell( );
 
