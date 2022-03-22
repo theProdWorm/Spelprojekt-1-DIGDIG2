@@ -162,7 +162,7 @@ public abstract class Entity : MonoBehaviour {
 
     protected virtual void OnTriggerEnter2D (Collider2D collision) {
         if (collision.CompareTag("Spell")) {
-            var spell = collision.GetComponent<Spell>( );
+            Spell spell = collision.GetComponent<ISpell>( ).GetSpell( );
 
             TakeHit(spell);
 
