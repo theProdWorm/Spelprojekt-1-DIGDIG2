@@ -88,8 +88,6 @@ public class Slime : Entity {
         if (transform.position != rendezvous) return true;
 
         if (partners.All(slime => slime.transform.position == rendezvous)) {
-            print($"{name} has fused with {rel[0].name} and {rel[1].name}!");
-
             Fuse( );
         }
 
@@ -108,8 +106,6 @@ public class Slime : Entity {
 
         slimes[1].partners[0] = this;
         slimes[1].partners[1] = slimes[0];
-
-        print($"{name} has chosen {partners[0].name} and {partners[1].name} as its partners!");
     }
 
     /// <summary>
