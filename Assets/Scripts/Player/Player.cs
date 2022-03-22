@@ -13,6 +13,7 @@ public class Player : Entity {
 
     [HideInInspector]
     public Direction facing;
+    public Direction deltaFacing;
 
     private readonly List<Element> selectedElements = new List<Element>(5);
 
@@ -47,8 +48,10 @@ public class Player : Entity {
 
         transform.position += _move;
 
-        if (facing != Direction.none)
+        if (facing != Direction.none) {
             animator.SetInteger("facing", (int) facing);
+            deltaFacing = facing;
+        }
     }
 
     private void CastSpell ( ) {
@@ -65,9 +68,11 @@ public class Player : Entity {
 
             print("combo does not exist: " + n_combo);
         }
-        else print(spell.name);
+        else {
+            print(spell.name);
 
-        CastSpell(spell); // from base class Entity
+            CastSpell(spell); // from base class Entity
+        }
 
         selectedElements.Clear( );
     }
@@ -115,6 +120,7 @@ public class Player : Entity {
         }
         return false;
     }
+    #endregion
 
     /// <summary>
     /// Returns an appropriate Vector2 according to the input Direction.
@@ -126,5 +132,4 @@ public class Player : Entity {
         Direction.up => Vector2.up,
         _ => Vector2.zero
     };
-    #endregion
 }

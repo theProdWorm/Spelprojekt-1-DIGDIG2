@@ -394,6 +394,7 @@ MonoBehaviour:
   upKeys: 7700000011010000
   castKeys: 6b000000
   facing: 0
+  deltaFacing: 0
 --- !u!212 &945377761
 SpriteRenderer:
   m_ObjectHideFlags: 0

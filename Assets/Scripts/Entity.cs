@@ -107,7 +107,7 @@ public abstract class Entity : MonoBehaviour {
     }
 
     protected void CastSpell (Spell spell) {
-        Instantiate(spell.activated);
+        Instantiate(spell.activated, transform.position, Quaternion.identity);
     }
 
     public void TakeHit (Spell spell) {

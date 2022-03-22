@@ -20,4 +20,4 @@ MonoBehaviour:
   stunDuration: 0.05
   dominantElement: 3
   combo: 0300000001000000
-  activated: {fileID: 0}
+  activated: {fileID: 4129570340722199017, guid: dc1dfe94a3f0d0a4f8a451a9f8a57861, type: 3}
