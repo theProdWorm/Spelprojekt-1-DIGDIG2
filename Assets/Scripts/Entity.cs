@@ -45,7 +45,7 @@ public abstract class Entity : MonoBehaviour {
     protected const float affectDur = 3.0f;
     protected readonly Dictionary<Element, float> affectedBy = new Dictionary<Element, float>( );
 
-    protected bool shouldReturn;
+    protected bool stunned;
 
     protected virtual void Start ( ) {
         #region initialize stats
@@ -95,7 +95,7 @@ public abstract class Entity : MonoBehaviour {
             stunDur -= Time.deltaTime;
 
             if (stunDur > 0) {
-                shouldReturn = true;
+                stunned = true;
                 return;
             }
         }
@@ -108,7 +108,7 @@ public abstract class Entity : MonoBehaviour {
                 affectedBy[(Element) i] -= Mathf.Clamp(Time.deltaTime, 0, affectDur);
         }
 
-        shouldReturn = false;
+        stunned = false;
     }
 
     protected void CastSpell (Spell spell) {
@@ -171,7 +171,7 @@ public abstract class Entity : MonoBehaviour {
 
     protected virtual void OnTriggerStay2D (Collider2D collision) {
         if (collision.CompareTag("Spell")) {
-            Spell spell = collision.GetComponent<ISpell>( ).GetSpell( );
+            Spell spell = collision.GetComponent<ISpell>( ).spell;
 
             TakeHit(spell);
 

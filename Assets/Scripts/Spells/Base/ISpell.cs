@@ -1,3 +1,3 @@
 ﻿public interface ISpell {
-    Spell GetSpell ( );
+    Spell spell { get; }
 }

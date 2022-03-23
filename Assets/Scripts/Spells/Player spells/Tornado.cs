@@ -1,11 +1,12 @@
 using UnityEngine;
 
 public class Tornado : MonoBehaviour, ISpell {
-    public Spell spell;
+    public Spell spell { get; }
 
     public float deviation;
     public float frequency;
     public float speed;
+    public float maxDistance;
 
     private float angle = 0;
 

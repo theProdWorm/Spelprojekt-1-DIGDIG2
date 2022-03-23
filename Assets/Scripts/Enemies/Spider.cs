@@ -25,7 +25,7 @@ public class Spider : Entity {
 
     protected override void Update ( ) {
         base.Update( );
-        if (shouldReturn) return;
+        if (stunned) return;
 
         if (jumpCooldown > 0) {
             jumpCooldown -= Time.deltaTime;
