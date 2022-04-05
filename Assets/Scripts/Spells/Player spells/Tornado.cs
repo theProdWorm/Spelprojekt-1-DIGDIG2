@@ -17,7 +17,7 @@ public class Tornado : MonoBehaviour, ISpell {
     private void Start ( ) {
         Direction facing = FindObjectOfType<Player>( ).deltaFacing;
 
-        direction = Player.TranslateDirection(facing);
+        direction = LMTools.GetVector(facing);
     }
 
     private void Update ( ) {

@@ -41,13 +41,14 @@ public class Slime : Entity {
             Split( );
 
         bool success = false;
-        if (fuseCD <= 0 && size < Size.large) success = TryFuse( );
-        else if (size == Size.large) TryConsume( );
-        else if (!success) Nibble( );
+            if (fuseCD <= 0 && size < Size.large) success = TryFuse( );
+            else if (size == Size.large) success = TryConsume( );
+            
+            if (!success) Nibble( );
     }
 
-    private void TryConsume ( ) {
-
+    private bool TryConsume ( ) {
+        return false;
     }
 
     private void Nibble ( ) {

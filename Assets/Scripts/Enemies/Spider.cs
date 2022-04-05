@@ -66,7 +66,7 @@ public class Spider : Entity {
 
         Vector3 move;
 
-        var oppDir = GetDomAxis(transform.position - targetPos);
+        var oppDir = LMTools.DomAxis(transform.position - targetPos);
 
         if (distance <= maxJumpDistance && jumpCooldown > 0) {
             move = oppDir * c_speed * Time.deltaTime;
@@ -86,7 +86,7 @@ public class Spider : Entity {
     public void SwitchDir ( ) => moveDir = -moveDir;
 
     private void CloseDistance ( ) {
-        Vector2 towardPlayer = GetDomAxis(targetPos - transform.position);
+        Vector2 towardPlayer = LMTools.DomAxis(targetPos - transform.position);
 
         Vector3 move = towardPlayer * c_speed * Time.deltaTime;
 

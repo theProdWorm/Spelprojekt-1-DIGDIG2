@@ -118,6 +118,8 @@ public abstract class Entity : MonoBehaviour {
     public void TakeHit (Spell spell) {
         if (hitCD > 0) return;
 
+        print(spell.name);
+
         float damage = spell.damagePerHit * (20.0f / (20.0f + (float) GetER(spell.dominantElement)));
 
         c_hp -= damage;
@@ -152,16 +154,6 @@ public abstract class Entity : MonoBehaviour {
         Element.physical => c_physRes,
         _ => c_physRes
     };
-
-    protected Vector2 GetDomAxis (Vector2 diagonal) {
-        float angle = Mathf.Atan2(diagonal.y, diagonal.x);
-
-        float x = Mathf.Cos(angle);
-        float y = Mathf.Sin(angle);
-
-        // return a new vector with only the dominant axis
-        return Mathf.Abs(x) > Mathf.Abs(y) ? new Vector2(x, 0) : new Vector2(0, y);
-    }
 
     protected virtual void Die ( ) {
         animator.SetBool("dead", true);

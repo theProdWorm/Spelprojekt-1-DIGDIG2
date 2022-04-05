@@ -44,7 +44,7 @@ public class Player : Entity {
 
         facing = inputDirs.Count != 0 ? inputDirs[^1] : Direction.none;
 
-        Vector3 _move = TranslateDirection(facing) * c_speed * Time.deltaTime;
+        Vector3 _move = LMTools.GetVector(facing) * c_speed * Time.deltaTime;
 
         transform.position += _move;
 
@@ -121,15 +121,4 @@ public class Player : Entity {
         return false;
     }
     #endregion
-
-    /// <summary>
-    /// Returns an appropriate Vector2 according to the input Direction.
-    /// </summary>
-    public static Vector2 TranslateDirection (Direction dir) => dir switch {
-        Direction.left => Vector2.left,
-        Direction.right => Vector2.right,
-        Direction.down => Vector2.down,
-        Direction.up => Vector2.up,
-        _ => Vector2.zero
-    };
 }
