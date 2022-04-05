@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New spell", menuName = "Spell")]
-public class Spell : ScriptableObject {
+public class Spell : MonoBehaviour {
     [Tooltip("Some spells hit multiple times. This describes damage done per hit, not in total.")]
     public float damagePerHit;
 

@@ -118,8 +118,6 @@ public abstract class Entity : MonoBehaviour {
     public void TakeHit (Spell spell) {
         if (hitCD > 0) return;
 
-        print(spell.name);
-
         float damage = spell.damagePerHit * (20.0f / (20.0f + (float) GetER(spell.dominantElement)));
 
         c_hp -= damage;
@@ -163,7 +161,7 @@ public abstract class Entity : MonoBehaviour {
 
     protected virtual void OnTriggerStay2D (Collider2D collision) {
         if (collision.CompareTag("Spell")) {
-            Spell spell = collision.GetComponent<ISpell>( ).spell;
+            Spell spell = collision.GetComponent<Spell>( );
 
             TakeHit(spell);
 

@@ -100,10 +100,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb180ef2d73cd844c9bbd71bc349fdd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spell: {fileID: 11400000, guid: 113928cb4ae77b34894b8dedc6aef13e, type: 2}
+  damagePerHit: 2
+  hitFrequency: 0
+  aoe: 0
+  slowAmount: 0
+  slowDuration: 0
+  stackSlow: 0
+  stunDuration: 0
+  dominantElement: 0
+  combo: 
+  activated: {fileID: 0}
   deviation: 5
   frequency: 12
   speed: 4
+  maxDistance: 0
 --- !u!95 &7248714192979365229
 Animator:
   serializedVersion: 4

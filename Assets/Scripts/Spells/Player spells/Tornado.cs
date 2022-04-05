@@ -1,8 +1,7 @@
 using UnityEngine;
 
-public class Tornado : MonoBehaviour, ISpell {
-    public Spell spell { get; }
-
+public class Tornado : Spell {
+    
     public float deviation;
     public float frequency;
     public float speed;
@@ -11,8 +10,6 @@ public class Tornado : MonoBehaviour, ISpell {
     private float angle = 0;
 
     private Vector2 direction;
-
-    public Spell GetSpell ( ) => spell;
 
     private void Start ( ) {
         Direction facing = FindObjectOfType<Player>( ).deltaFacing;
