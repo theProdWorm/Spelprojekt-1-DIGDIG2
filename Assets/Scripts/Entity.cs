@@ -14,6 +14,9 @@ public class SlowEffect {
 public abstract class Entity : MonoBehaviour {
     #region INITIAL STATS
     public float i_hp;
+    public float i_mana;
+    public float i_manaReg;
+    public float i_haste;
     public float i_speed;
 
     public float i_waterRes;
@@ -25,6 +28,9 @@ public abstract class Entity : MonoBehaviour {
 
     #region CURRENT STATS
     protected float c_hp;
+    protected float c_mana;
+    protected float c_manaReg;
+    protected float c_haste;
     protected float c_speed;
 
     protected float c_waterRes;
@@ -36,8 +42,6 @@ public abstract class Entity : MonoBehaviour {
 
     protected List<SlowEffect> slowEffects;
     protected float stunDur;
-
-    protected float hitCD;
 
     protected Rigidbody2D rb;
     protected Animator animator;
@@ -70,6 +74,10 @@ public abstract class Entity : MonoBehaviour {
     }
 
     protected virtual void Update ( ) {
+        if (c_mana < i_mana) {
+            c_mana = Mathf.Clamp(c_mana + c_manaReg, 0, i_mana);
+        }
+
         // reduce slow duration, reset if zero
         if (slowEffects.Count > 0) {
             float newSpeed = i_speed;
@@ -100,9 +108,6 @@ public abstract class Entity : MonoBehaviour {
             }
         }
 
-        if (hitCD > 0)
-            hitCD -= Time.deltaTime;
-
         for (int i = 0; i < 5; i++) {
             if (affectedBy[(Element) i] > 0)
                 affectedBy[(Element) i] -= Mathf.Clamp(Time.deltaTime, 0, affectDur);
@@ -116,8 +121,6 @@ public abstract class Entity : MonoBehaviour {
     }
 
     public void TakeHit (Spell spell) {
-        if (hitCD > 0) return;
-
         float damage = spell.damagePerHit * (20.0f / (20.0f + (float) GetER(spell.dominantElement)));
 
         c_hp -= damage;
@@ -137,7 +140,7 @@ public abstract class Entity : MonoBehaviour {
 
         print($"{name} has {c_hp} hp left.");
 
-        hitCD = 1 / spell.hitFrequency;
+        spell.hitCDs.Add(new HitCD(this, 1 / spell.hitFrequency));
     }
 
     /// <summary>
@@ -163,7 +166,8 @@ public abstract class Entity : MonoBehaviour {
         if (collision.CompareTag("Spell")) {
             Spell spell = collision.GetComponent<Spell>( );
 
-            TakeHit(spell);
+            if (spell.GetHitCD(this) <= 0)
+                TakeHit(spell);
 
             print($"{name} was hit by {spell.name}!");
         }

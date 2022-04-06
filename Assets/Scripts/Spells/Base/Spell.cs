@@ -1,4 +1,16 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+
+public class HitCD {
+    public Entity instance;
+    public float cd;
+
+    public HitCD (Entity instance, float cd) {
+        this.instance = instance;
+        this.cd = cd;
+    }
+}
 
 [CreateAssetMenu(fileName = "New spell", menuName = "Spell")]
 public class Spell : MonoBehaviour {
@@ -10,6 +22,9 @@ public class Spell : MonoBehaviour {
 
     [Tooltip("Area of effect in world coordinates.")]
     public float aoe;
+
+    [Tooltip("The amount of mana required to cast the spell.")]
+    public float manaCost;
 
     [Tooltip("Amount slowed in percentage. Set to zero if the spell does not apply slowness.")]
     public float slowAmount;
@@ -33,4 +48,24 @@ False: Override existing slowness effects; only this slowness will be prominent.
 
     [Tooltip("Always includes a copy of this ScriptableObject, a script describing the spell's active behaviour, and a Collider2D.")]
     public GameObject activated;
+
+    [HideInInspector]
+    public List<HitCD> hitCDs = new List<HitCD>( );
+
+    protected virtual void Update ( ) {
+        for (int i = 0; i < hitCDs.Count; i++) {
+            if (hitCDs[i].cd > 0) {
+                hitCDs[i].cd -= Time.deltaTime;
+
+                if (hitCDs[i].cd <= 0)
+                    hitCDs.RemoveAt(i);
+            }
+        }
+    }
+
+    public float GetHitCD (Entity instance) {
+        var hitCD = hitCDs.Find(x => x.instance == instance);
+
+        return hitCD.cd;
+    }
 }

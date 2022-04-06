@@ -6,6 +6,7 @@ public class Tornado : Spell {
     public float frequency;
     public float speed;
     public float maxDistance;
+    public float knockback;
 
     private float angle = 0;
 
@@ -17,7 +18,7 @@ public class Tornado : Spell {
         direction = LMTools.GetVector(facing);
     }
 
-    private void Update ( ) {
+    protected override void Update ( ) {
         angle += frequency * Time.deltaTime;
 
         if (angle > 2 * Mathf.PI)
@@ -28,5 +29,9 @@ public class Tornado : Spell {
         Vector2 move = (direction * speed * Time.deltaTime) + (perp * deviation * Time.deltaTime * Mathf.Sin(angle));
 
         transform.position += (Vector3) move;
+    }
+
+    private void OnCollisionStay2D (Collision2D collision) {
+        collision.transform.position += (Vector3) direction * knockback;
     }
 }

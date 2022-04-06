@@ -10,12 +10,14 @@ public class Player : Entity {
     private readonly List<Direction> inputDirs = new List<Direction>( );
 
     public KeyCode[ ] castKeys;
+    public KeyCode[ ] clearKeys;
 
     [HideInInspector]
     public Direction facing;
+    [HideInInspector]
     public Direction deltaFacing;
 
-    private readonly List<Element> selectedElements = new List<Element>(5);
+    private readonly List<Element> selectedElements = new List<Element>(4);
 
     private Spellbook spellbook;
 
@@ -37,6 +39,9 @@ public class Player : Entity {
         if (KeyDown(castKeys)) {
             CastSpell( );
         }
+
+        if (KeyDown(clearKeys)) 
+            selectedElements.Clear( );
     }
 
     private void Move ( ) {
@@ -56,6 +61,13 @@ public class Player : Entity {
 
     private void CastSpell ( ) {
         Spell spell = spellbook.GetSpell(selectedElements);
+
+        if (c_mana < spell.manaCost) {
+
+            // indicate to the player that they don't have enough mana to cast the spell
+
+            return;
+        }
 
         if (spell is null) {
             string n_combo = "";

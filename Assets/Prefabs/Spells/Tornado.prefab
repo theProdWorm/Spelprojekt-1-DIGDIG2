@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damagePerHit: 2
-  hitFrequency: 0
+  hitFrequency: 4
   aoe: 0
   slowAmount: 0
   slowDuration: 0
