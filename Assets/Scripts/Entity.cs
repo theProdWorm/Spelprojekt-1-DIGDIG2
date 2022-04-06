@@ -166,7 +166,7 @@ public abstract class Entity : MonoBehaviour {
         if (collision.CompareTag("Spell")) {
             Spell spell = collision.GetComponent<Spell>( );
 
-            if (spell.GetHitCD(this) <= 0)
+            if (spell.CanHit(this))
                 TakeHit(spell);
 
             print($"{name} was hit by {spell.name}!");

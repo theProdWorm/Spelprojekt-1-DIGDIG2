@@ -12,13 +12,17 @@ public class Tornado : Spell {
 
     private Vector2 direction;
 
-    private void Start ( ) {
+    protected override void Start ( ) {
+        base.Start( );
+
         Direction facing = FindObjectOfType<Player>( ).deltaFacing;
 
         direction = LMTools.GetVector(facing);
     }
 
     protected override void Update ( ) {
+        base.Update( );
+
         angle += frequency * Time.deltaTime;
 
         if (angle > 2 * Mathf.PI)

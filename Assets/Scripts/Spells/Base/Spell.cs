@@ -12,16 +12,12 @@ public class HitCD {
     }
 }
 
-[CreateAssetMenu(fileName = "New spell", menuName = "Spell")]
-public class Spell : MonoBehaviour {
+public abstract class Spell : MonoBehaviour {
     [Tooltip("Some spells hit multiple times. This describes damage done per hit, not in total.")]
     public float damagePerHit;
 
     [Tooltip("The maximum amount of times this spell can deal damage to a single enemy in one second.")]
     public float hitFrequency;
-
-    [Tooltip("Area of effect in world coordinates.")]
-    public float aoe;
 
     [Tooltip("The amount of mana required to cast the spell.")]
     public float manaCost;
@@ -46,11 +42,15 @@ False: Override existing slowness effects; only this slowness will be prominent.
     [Tooltip("Elements used to cast the spell.")]
     public Element[ ] combo;
 
-    [Tooltip("Always includes a copy of this ScriptableObject, a script describing the spell's active behaviour, and a Collider2D.")]
+    [Tooltip("Always includes a copy of this ScriptableObject, a script describing the spell's active behaviour, and a Collider2D."), HideInInspector]
     public GameObject activated;
 
     [HideInInspector]
     public List<HitCD> hitCDs = new List<HitCD>( );
+
+    protected virtual void Start ( ) {
+        activated = transform.parent.gameObject;
+    }
 
     protected virtual void Update ( ) {
         for (int i = 0; i < hitCDs.Count; i++) {
@@ -63,9 +63,9 @@ False: Override existing slowness effects; only this slowness will be prominent.
         }
     }
 
-    public float GetHitCD (Entity instance) {
-        var hitCD = hitCDs.Find(x => x.instance == instance);
+    public bool CanHit (Entity instance) {
+        var hitCD = hitCDs.FirstOrDefault(x => x.instance == instance);
 
-        return hitCD.cd;
+        return hitCD is null;
     }
 }

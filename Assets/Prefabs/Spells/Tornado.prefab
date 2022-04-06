@@ -102,18 +102,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damagePerHit: 2
   hitFrequency: 4
-  aoe: 0
+  aoe: 1.5
+  manaCost: 3
   slowAmount: 0
   slowDuration: 0
   stackSlow: 0
   stunDuration: 0
-  dominantElement: 0
-  combo: 
-  activated: {fileID: 0}
+  dominantElement: 3
+  combo: 0300000001000000
+  activated: {fileID: 4129570340722199017}
   deviation: 5
   frequency: 12
   speed: 4
-  maxDistance: 0
+  maxDistance: 10
+  knockback: 1
 --- !u!95 &7248714192979365229
 Animator:
   serializedVersion: 4

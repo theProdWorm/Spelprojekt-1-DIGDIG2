@@ -51,11 +51,7 @@ public class Spider : Entity {
             jumpCooldown = initialJumpCooldown;
             jumping = false;
 
-            var distance = Vector2.Distance(player.transform.position, transform.position);
-
-            if (distance <= jumpSpell.aoe) {
-                player.TakeHit(jumpSpell);
-            }
+            CastSpell(jumpSpell);
         }
     }
 
@@ -83,7 +79,7 @@ public class Spider : Entity {
         transform.position += move;
     }
 
-    public void SwitchDir ( ) => moveDir = -moveDir;
+    private void SwitchDir ( ) => moveDir = -moveDir;
 
     private void CloseDistance ( ) {
         Vector2 towardPlayer = LMTools.DomAxis(targetPos - transform.position);
