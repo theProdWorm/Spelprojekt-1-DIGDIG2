@@ -36,11 +36,10 @@ public class Player : Entity {
 
         SelectElement( );
 
-        if (KeyDown(castKeys)) {
+        if (KeyDown(castKeys))
             CastSpell( );
-        }
 
-        if (KeyDown(clearKeys)) 
+        if (KeyDown(clearKeys))
             selectedElements.Clear( );
     }
 
@@ -65,7 +64,7 @@ public class Player : Entity {
         if (c_mana < spell.manaCost) {
 
             // indicate to the player that they don't have enough mana to cast the spell
-
+            print("Not enough mana!");
             return;
         }
 

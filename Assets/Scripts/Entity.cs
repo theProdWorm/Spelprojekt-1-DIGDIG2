@@ -27,8 +27,10 @@ public abstract class Entity : MonoBehaviour {
     #endregion
 
     #region CURRENT STATS
-    protected float c_hp;
-    protected float c_mana;
+    [HideInInspector]
+    public float c_hp;
+    [HideInInspector]
+    public float c_mana;
     protected float c_manaReg;
     protected float c_haste;
     protected float c_speed;
@@ -46,14 +48,14 @@ public abstract class Entity : MonoBehaviour {
     protected Rigidbody2D rb;
     protected Animator animator;
 
-    protected const float affectDur = 3.0f;
-    protected readonly Dictionary<Element, float> affectedBy = new Dictionary<Element, float>( );
-
     protected bool stunned;
 
     protected virtual void Start ( ) {
         #region initialize stats
         c_hp = i_hp;
+        c_mana = i_mana;
+        c_manaReg = i_manaReg;
+        c_haste = i_haste;
         c_speed = i_speed;
 
         c_waterRes = i_waterRes;
@@ -67,10 +69,6 @@ public abstract class Entity : MonoBehaviour {
 
         rb = GetComponent<Rigidbody2D>( );
         animator = GetComponent<Animator>( );
-
-        for (int i = 0; i < 5; i++) {
-            affectedBy.Add((Element) i, 0.0f);
-        }
     }
 
     protected virtual void Update ( ) {
@@ -108,11 +106,6 @@ public abstract class Entity : MonoBehaviour {
             }
         }
 
-        for (int i = 0; i < 5; i++) {
-            if (affectedBy[(Element) i] > 0)
-                affectedBy[(Element) i] -= Mathf.Clamp(Time.deltaTime, 0, affectDur);
-        }
-
         stunned = false;
     }
 
@@ -127,8 +120,6 @@ public abstract class Entity : MonoBehaviour {
         if (c_hp <= 0) {
             Die( );
         }
-
-        affectedBy[spell.dominantElement] = affectDur;
 
         if (!spell.stackSlow) {
             slowEffects.Clear( );
