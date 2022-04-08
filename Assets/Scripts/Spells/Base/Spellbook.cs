@@ -3,16 +3,18 @@ using UnityEngine;
 
 public class Spellbook : MonoBehaviour
 {
-    public Spell[ ] spells;
+    public GameObject[ ] spells;
 
-    public Spell GetSpell (List<Element> selectedElements) {
+    public GameObject GetSpell (List<Element> selectedElements) {
         if (selectedElements.Count == 0) return null;
 
         for (int i = 0; i < spells.Length; i++) {
-            bool match = selectedElements.Count == spells[i].combo.Length;
+            var spell = spells[i].GetComponent<Spell>( );
 
-            for (int j = 0; j < spells[i].combo.Length; j++) {
-                bool elementSelected = selectedElements.Contains(spells[i].combo[j]);
+            bool match = selectedElements.Count == spell.combo.Length;
+
+            for (int j = 0; j < spell.combo.Length; j++) {
+                bool elementSelected = selectedElements.Contains(spell.combo[j]);
 
                 if (!elementSelected) {
                     match = false;

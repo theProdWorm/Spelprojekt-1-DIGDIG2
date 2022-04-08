@@ -59,7 +59,8 @@ public class Player : Entity {
     }
 
     private void CastSpell ( ) {
-        Spell spell = spellbook.GetSpell(selectedElements);
+        GameObject spellInstance = spellbook.GetSpell(selectedElements);
+        var spell = spellInstance.GetComponent<Spell>( );
 
         if (c_mana < spell.manaCost) {
 
@@ -68,7 +69,7 @@ public class Player : Entity {
             return;
         }
 
-        if (spell is null) {
+        if (spellInstance is null) {
             string n_combo = "";
             for (int i = 0; i < selectedElements.Count; i++) {
                 n_combo += selectedElements[i];
@@ -80,12 +81,12 @@ public class Player : Entity {
             if (n_combo != "") print("combo does not exist: " + n_combo);
         }
         else {
-            print(spell.name);
+            print(spellInstance.name);
 
-            CastSpell(spell); // from base class Entity
+            Instantiate(spellInstance, transform.position, Quaternion.identity);
+
+            c_mana -= spell.manaCost;
         }
-
-        selectedElements.Clear( );
     }
 
     #region Handle input

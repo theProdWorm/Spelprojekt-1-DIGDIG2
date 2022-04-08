@@ -42,15 +42,8 @@ False: Override existing slowness effects; only this slowness will be prominent.
     [Tooltip("Elements used to cast the spell.")]
     public Element[ ] combo;
 
-    [Tooltip("Always includes a copy of this ScriptableObject, a script describing the spell's active behaviour, and a Collider2D."), HideInInspector]
-    public GameObject activated;
-
     [HideInInspector]
     public List<HitCD> hitCDs = new List<HitCD>( );
-
-    protected virtual void Start ( ) {
-        activated = transform.parent.gameObject;
-    }
 
     protected virtual void Update ( ) {
         for (int i = 0; i < hitCDs.Count; i++) {

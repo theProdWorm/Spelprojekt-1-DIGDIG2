@@ -12,9 +12,7 @@ public class Tornado : Spell {
 
     private Vector2 direction;
 
-    protected override void Start ( ) {
-        base.Start( );
-
+    private void Start ( ) {
         Direction facing = FindObjectOfType<Player>( ).deltaFacing;
 
         direction = LMTools.GetVector(facing);
@@ -35,7 +33,7 @@ public class Tornado : Spell {
         transform.position += (Vector3) move;
     }
 
-    private void OnCollisionStay2D (Collision2D collision) {
+    private void OnTriggerStay2D (Collider2D collision) {
         collision.transform.position += (Vector3) direction * knockback;
     }
 }

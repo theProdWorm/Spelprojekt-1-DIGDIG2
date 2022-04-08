@@ -73,7 +73,7 @@ public abstract class Entity : MonoBehaviour {
 
     protected virtual void Update ( ) {
         if (c_mana < i_mana) {
-            c_mana = Mathf.Clamp(c_mana + c_manaReg, 0, i_mana);
+            c_mana = Mathf.Clamp(c_mana + c_manaReg * Time.deltaTime, 0, i_mana);
         }
 
         // reduce slow duration, reset if zero
@@ -109,8 +109,8 @@ public abstract class Entity : MonoBehaviour {
         stunned = false;
     }
 
-    protected void CastSpell (Spell spell) {
-        Instantiate(spell.activated, transform.position, Quaternion.identity);
+    protected void CastSpell (GameObject spell) {
+        Instantiate(spell, transform.position, Quaternion.identity);
     }
 
     public void TakeHit (Spell spell) {

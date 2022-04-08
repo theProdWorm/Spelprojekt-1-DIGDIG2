@@ -5,7 +5,7 @@ public class Spider : Entity {
     public float jumpSpeedMod;
     public float initialJumpCooldown;
 
-    public Spell jumpSpell;
+    public GameObject jumpSpell;
 
     private float jumpCooldown;
     private bool jumping;
