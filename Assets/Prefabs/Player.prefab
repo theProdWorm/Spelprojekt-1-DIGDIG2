@@ -74,7 +74,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5116013949281505109}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -148,18 +148,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4780e9514d7fef842946f7964aab3272, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  i_hp: 20
+  i_hp: 10
+  i_mana: 10
+  i_manaReg: 2
+  i_haste: 2
   i_speed: 5
   i_waterRes: 0
   i_earthRes: 0
   i_fireRes: 0
   i_airRes: 0
   i_physRes: 0
+  c_hp: 0
+  c_mana: 0
   leftKeys: 6100000014010000
   rightKeys: 6400000013010000
   downKeys: 7300000012010000
   upKeys: 7700000011010000
   castKeys: 6b000000
+  clearKeys: 71000000
   facing: 0
   deltaFacing: 0
 --- !u!95 &5116013949281505133

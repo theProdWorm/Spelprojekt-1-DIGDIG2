@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,7 +7,7 @@ public class ManaBar : MonoBehaviour {
     private Image img;
     private Player player;
 
-    private int deltaMana;
+    private int d_mana;
 
     private void Start ( ) {
         player = FindObjectOfType<Player>( );
@@ -20,7 +18,9 @@ public class ManaBar : MonoBehaviour {
     private void Update ( ) {
         int mana = Mathf.FloorToInt(player.c_mana);
 
-        if (mana != deltaMana)
+        if (mana != d_mana)
             img.sprite = barStages[mana];
+
+        d_mana = mana;
     }
 }

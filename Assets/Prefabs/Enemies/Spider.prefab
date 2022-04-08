@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4208360481388121623}
   - component: {fileID: 360160155105476579}
   - component: {fileID: -1267694849560307010}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Spider
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -514779645, guid: 92dcb2a2f8239dc41a76365e2e9d57ef, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -101,12 +101,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   i_hp: 40
+  i_mana: 0
+  i_manaReg: 0
+  i_haste: 0
   i_speed: 3.5
   i_waterRes: 0
   i_earthRes: 0
   i_fireRes: 0
   i_airRes: 2
   i_physRes: 0
+  c_hp: 0
+  c_mana: 0
   maxJumpDistance: 5
   jumpSpeedMod: 3
   initialJumpCooldown: 4

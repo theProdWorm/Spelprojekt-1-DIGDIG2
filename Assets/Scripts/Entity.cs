@@ -114,7 +114,7 @@ public abstract class Entity : MonoBehaviour {
     }
 
     public void TakeHit (Spell spell) {
-        float damage = spell.damagePerHit * (20.0f / (20.0f + (float) GetER(spell.dominantElement)));
+        float damage = spell.damagePerHit * (10.0f / (10.0f + (float) GetER(spell.dominantElement)));
 
         c_hp -= damage;
         if (c_hp <= 0) {
