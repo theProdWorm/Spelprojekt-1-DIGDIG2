@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 public class Tornado : Spell {
@@ -33,7 +34,7 @@ public class Tornado : Spell {
         transform.position += (Vector3) move;
     }
 
-    private void OnTriggerStay2D (Collider2D collision) {
-        collision.transform.position += (Vector3) direction * knockback;
+    public override void OnHit (Entity entity) {
+        entity.transform.position += (Vector3) direction * knockback;
     }
 }

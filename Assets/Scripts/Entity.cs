@@ -131,7 +131,9 @@ public abstract class Entity : MonoBehaviour {
 
         print($"{name} has {c_hp} hp left.");
 
-        spell.hitCDs.Add(new HitCD(this, 1 / spell.hitFrequency));
+        spell.OnHit(this);
+
+        spell.hitCDs.Add(new HitCD(transform, 1 / spell.hitFrequency));
     }
 
     /// <summary>
@@ -157,7 +159,7 @@ public abstract class Entity : MonoBehaviour {
         if (collision.CompareTag("Spell")) {
             Spell spell = collision.GetComponent<Spell>( );
 
-            if (spell.CanHit(this))
+            if (spell.CanHit(transform))
                 TakeHit(spell);
 
             print($"{name} was hit by {spell.name}!");

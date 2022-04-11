@@ -3,11 +3,11 @@ using System.Linq;
 using UnityEngine;
 
 public class HitCD {
-    public Entity instance;
+    public Transform transform;
     public float cd;
 
-    public HitCD (Entity instance, float cd) {
-        this.instance = instance;
+    public HitCD (Transform transform, float cd) {
+        this.transform = transform;
         this.cd = cd;
     }
 }
@@ -56,9 +56,11 @@ False: Override existing slowness effects; only this slowness will be prominent.
         }
     }
 
-    public bool CanHit (Entity instance) {
-        var hitCD = hitCDs.FirstOrDefault(x => x.instance == instance);
+    public bool CanHit (Transform transform) {
+        var hitCD = hitCDs.FirstOrDefault(x => x.transform == transform);
 
         return hitCD is null;
     }
+
+    public abstract void OnHit (Entity entity);
 }

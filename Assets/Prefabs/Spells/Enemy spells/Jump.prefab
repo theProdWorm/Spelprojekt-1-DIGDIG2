@@ -45,14 +45,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b634f3e2df3a6824089ab54db41f3537, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damagePerHit: 0
+  damagePerHit: 3
   hitFrequency: 0
-  manaCost: 0
+  manaCost: 10
   slowAmount: 0
   slowDuration: 0
   stackSlow: 0
-  stunDuration: 0
-  dominantElement: 0
+  stunDuration: 0.4
+  dominantElement: 4
   combo: 
 --- !u!58 &-5824643155461347938
 CircleCollider2D:

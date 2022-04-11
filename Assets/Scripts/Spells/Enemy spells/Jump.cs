@@ -8,7 +8,11 @@ public class Jump : Spell {
     }
 
     private IEnumerator DestroyThis ( ) {
-        yield return new WaitForEndOfFrame( );
+        yield return new WaitForSeconds(.05f);
         Destroy(gameObject);
+    }
+
+    public override void OnHit (Entity entity) {
+
     }
 }
