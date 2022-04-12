@@ -153,6 +153,7 @@ public abstract class Entity : MonoBehaviour {
         animator.SetBool("dead", true);
 
         print($"{name} is dead!");
+        Destroy(gameObject);
     }
 
     protected virtual void OnTriggerStay2D (Collider2D collision) {

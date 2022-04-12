@@ -88,9 +88,8 @@ public class Slime : Entity {
         transform.position = Vector2.MoveTowards(transform.position, rendezvous, c_speed * Time.deltaTime);
         if (transform.position != rendezvous) return true;
 
-        if (partners.All(slime => slime.transform.position == rendezvous)) {
+        if (partners.All(slime => slime.transform.position == rendezvous))
             Fuse( );
-        }
 
         return true;
     }

@@ -12,7 +12,5 @@ public class Jump : Spell {
         Destroy(gameObject);
     }
 
-    public override void OnHit (Entity entity) {
-
-    }
+    public override void OnHit (Entity entity) {}
 }
