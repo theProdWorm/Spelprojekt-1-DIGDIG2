@@ -89,6 +89,10 @@ public class Player : Entity {
         }
     }
 
+    protected override void Die ( ) {
+        print("PLAYER DEDED");
+    }
+
     #region Handle input
     /// <summary>
     /// Checks for inputs 1-4 and selects the corresponding element, adding it to the selectedElements list.
