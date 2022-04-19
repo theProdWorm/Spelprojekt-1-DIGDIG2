@@ -131,8 +131,6 @@ public abstract class Entity : MonoBehaviour {
 
         print($"{name} has {c_hp} hp left.");
 
-        spell.OnHit(this);
-
         spell.hitCDs.Add(new HitCD(transform, 1 / spell.hitFrequency));
     }
 
@@ -150,7 +148,7 @@ public abstract class Entity : MonoBehaviour {
     };
 
     protected virtual void Die ( ) {
-        animator.SetBool("dead", true);
+        KillCounter.killCount++;
 
         print($"{name} is dead!");
         Destroy(gameObject);

@@ -33,8 +33,4 @@ public class Tornado : Spell {
 
         transform.position += (Vector3) move;
     }
-
-    public override void OnHit (Entity entity) {
-        entity.transform.position += (Vector3) direction * knockback;
-    }
 }

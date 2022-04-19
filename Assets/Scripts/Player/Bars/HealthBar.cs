@@ -18,7 +18,7 @@ public class HealthBar : MonoBehaviour {
     private void Update ( ) {
         int hp = Mathf.FloorToInt(player.c_hp);
 
-        if (hp != d_hp)
+        if (hp != d_hp && hp >= 0)
             img.sprite = barStages[hp];
 
         d_hp = hp;

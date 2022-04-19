@@ -61,6 +61,4 @@ False: Override existing slowness effects; only this slowness will be prominent.
 
         return hitCD is null;
     }
-
-    public abstract void OnHit (Entity entity);
 }

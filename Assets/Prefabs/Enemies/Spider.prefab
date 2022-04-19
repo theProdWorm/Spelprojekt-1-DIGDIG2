@@ -76,7 +76,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -514779645, guid: 92dcb2a2f8239dc41a76365e2e9d57ef, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -100,22 +100,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8383c838bd325ec44813b570a6b9d1f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  i_hp: 40
-  i_mana: 0
-  i_manaReg: 0
-  i_haste: 0
+  i_hp: 8
+  i_mana: 10
+  i_manaReg: 2
+  i_haste: 1
   i_speed: 3.5
   i_waterRes: 0
-  i_earthRes: 0
+  i_earthRes: -2
   i_fireRes: 0
-  i_airRes: 2
+  i_airRes: 5
   i_physRes: 0
   c_hp: 0
   c_mana: 0
   maxJumpDistance: 5
   jumpSpeedMod: 3
   initialJumpCooldown: 4
-  jumpSpell: {fileID: 11400000, guid: 552293fde301067449d18d2ddb597188, type: 2}
+  jumpSpell: {fileID: 5705899158450091246, guid: edc288cb00e0d8948991547509e4ece3, type: 3}
 --- !u!95 &4208360481388121623
 Animator:
   serializedVersion: 4
