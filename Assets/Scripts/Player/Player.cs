@@ -60,15 +60,7 @@ public class Player : Entity {
 
     private void CastSpell ( ) {
         GameObject spellInstance = spellbook.GetSpell(selectedElements);
-        var spell = spellInstance.GetComponent<Spell>( );
-
-        if (c_mana < spell.manaCost) {
-
-            // indicate to the player that they don't have enough mana to cast the spell
-            print("Not enough mana!");
-            return;
-        }
-
+        
         if (spellInstance is null) {
             string n_combo = "";
             for (int i = 0; i < selectedElements.Count; i++) {
@@ -80,13 +72,21 @@ public class Player : Entity {
 
             if (n_combo != "") print("combo does not exist: " + n_combo);
         }
-        else {
-            print(spellInstance.name);
 
-            Instantiate(spellInstance, transform.position, Quaternion.identity);
+        var spell = spellInstance.GetComponent<Spell>( );
 
-            c_mana -= spell.manaCost;
+        if (c_mana < spell.manaCost) {
+
+            // indicate to the player that they don't have enough mana to cast the spell
+            print("Not enough mana!");
+            return;
         }
+
+        print(spellInstance.name);
+
+        Instantiate(spellInstance, transform.position, Quaternion.identity);
+
+        c_mana -= spell.manaCost;
     }
 
     protected override void Die ( ) {

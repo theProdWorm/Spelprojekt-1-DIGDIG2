@@ -100,13 +100,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb180ef2d73cd844c9bbd71bc349fdd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damagePerHit: 2000
+  damagePerHit: 2
   hitFrequency: 4
   manaCost: 3
   slowAmount: 0
   slowDuration: 0
   stackSlow: 0
   stunDuration: 0
+  lifespan: 3
   dominantElement: 3
   combo: 0300000001000000
   deviation: 15

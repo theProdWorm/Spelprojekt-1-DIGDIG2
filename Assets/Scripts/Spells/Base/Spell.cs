@@ -36,6 +36,9 @@ False: Override existing slowness effects; only this slowness will be prominent.
     [Tooltip("Duration of the stun effect. Set to zero if the spell does not stun.")]
     public float stunDuration;
 
+    [Tooltip("The amount of time in seconds that the spell remains on the field.")]
+    public float lifespan;
+
     [Tooltip("Elemental damage type.")]
     public Element dominantElement;
 
@@ -45,6 +48,8 @@ False: Override existing slowness effects; only this slowness will be prominent.
     [HideInInspector]
     public List<HitCD> hitCDs = new List<HitCD>( );
 
+    private float lifetime;
+
     protected virtual void Update ( ) {
         for (int i = 0; i < hitCDs.Count; i++) {
             if (hitCDs[i].cd > 0) {
@@ -53,6 +58,13 @@ False: Override existing slowness effects; only this slowness will be prominent.
                 if (hitCDs[i].cd <= 0)
                     hitCDs.RemoveAt(i);
             }
+        }
+
+        if (lifetime < lifespan) {
+            lifetime += Time.deltaTime;
+
+            if (lifetime >= lifespan)
+                Destroy(gameObject);
         }
     }
 

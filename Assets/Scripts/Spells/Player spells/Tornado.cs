@@ -29,7 +29,7 @@ public class Tornado : Spell {
 
         Vector2 perp = Vector2.Perpendicular(direction);
 
-        Vector2 move = (direction * speed * Time.deltaTime) + (perp * deviation * Time.deltaTime * Mathf.Sin(angle));
+        Vector2 move = (direction * speed * Time.deltaTime) + (perp * deviation * Time.deltaTime * Mathf.Cos(angle));
 
         transform.position += (Vector3) move;
     }

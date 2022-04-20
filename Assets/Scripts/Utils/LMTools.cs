@@ -23,4 +23,13 @@ public static class LMTools
         // return a new vector with only the dominant axis
         return Mathf.Abs(x) > Mathf.Abs(y) ? new Vector2(x, 0) : new Vector2(0, y);
     }
+
+    public static Quaternion GetRotation (Direction dir) => dir switch
+    {
+        Direction.left => Quaternion.Euler(0, 0, 180),
+        Direction.right => Quaternion.identity,
+        Direction.down => Quaternion.Euler(0, 0, 270),
+        Direction.up => Quaternion.Euler(0, 0, 90),
+        _ => Quaternion.identity
+    };
 }

@@ -5,6 +5,7 @@ public class KillCounter : MonoBehaviour {
     public static int killCount = 0;
 
     public GameObject pablo;
+    public float pablo_SD;
 
     private bool pabloSpawned;
 
@@ -20,7 +21,7 @@ public class KillCounter : MonoBehaviour {
     }
 
     private void SpawnPablo ( ) {
-        Instantiate(pablo, new Vector3(Random.Range(0.0f, 100.0f), Random.Range(0.0f, 100.0f), 0), Quaternion.identity);
+        Instantiate(pablo, new Vector3(Random.Range(-pablo_SD, pablo_SD), Random.Range(pablo_SD, pablo_SD), 0), Quaternion.identity);
 
         pabloSpawned = true;
     }
