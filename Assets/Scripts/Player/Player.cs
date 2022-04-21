@@ -17,6 +17,8 @@ public class Player : Entity {
     [HideInInspector]
     public Direction deltaFacing;
 
+    public GameObject[ ] elementIcons;
+
     private readonly List<Element> selectedElements = new List<Element>(4);
 
     private Spellbook spellbook;
@@ -41,6 +43,10 @@ public class Player : Entity {
 
         if (KeyDown(clearKeys))
             selectedElements.Clear( );
+
+        for (int i = 0; i < 4; i++) {
+            elementIcons[i].SetActive(selectedElements.Contains((Element) i));
+        }
     }
 
     private void Move ( ) {
