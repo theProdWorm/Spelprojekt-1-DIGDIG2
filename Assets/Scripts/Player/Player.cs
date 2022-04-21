@@ -20,6 +20,7 @@ public class Player : Entity {
     public GameObject[ ] elementIcons;
 
     private readonly List<Element> selectedElements = new List<Element>(4);
+    private bool usedSelected;
 
     private Spellbook spellbook;
 
@@ -77,6 +78,8 @@ public class Player : Entity {
             }
 
             if (n_combo != "") print("combo does not exist: " + n_combo);
+
+            return;
         }
 
         var spell = spellInstance.GetComponent<Spell>( );
@@ -88,11 +91,11 @@ public class Player : Entity {
             return;
         }
 
-        print(spellInstance.name);
-
         Instantiate(spellInstance, transform.position, Quaternion.identity);
 
         c_mana -= spell.manaCost;
+
+        usedSelected = true;
     }
 
     protected override void Die ( ) {
@@ -105,9 +108,14 @@ public class Player : Entity {
     /// </summary>
     private void SelectElement ( ) {
         for (int i = 0; i < 4; i++) {
-            if (selectedElements.Contains((Element) i)) continue;
-
             if (Input.GetKeyDown((KeyCode) (i + 49))) {
+                if (usedSelected) {
+                    selectedElements.Clear( );
+                    usedSelected = false;
+                }
+                else if (selectedElements.Contains((Element) i))
+                    break;
+
                 selectedElements.Add((Element) i);
             }
         }

@@ -147,4 +147,4 @@ MonoBehaviour:
   i_physRes: 0
   c_hp: 0
   c_mana: 0
-  spawnText: {fileID: 7872608304575449254, guid: b0171c377c104ae46918f53e58b122a6, type: 3}
+  spawnTextPrefab: {fileID: 7872608304575449254, guid: b0171c377c104ae46918f53e58b122a6, type: 3}

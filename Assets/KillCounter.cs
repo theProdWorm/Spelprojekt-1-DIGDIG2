@@ -16,7 +16,7 @@ public class KillCounter : MonoBehaviour {
 
         tmp.text = "Kill count: " + killCount;
 
-        if (killCount >= 5 && !pabloSpawned)
+        if (killCount >= 15 && !pabloSpawned)
             SpawnPablo( );
     }
 

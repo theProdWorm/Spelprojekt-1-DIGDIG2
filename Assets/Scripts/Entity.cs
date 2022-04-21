@@ -49,6 +49,7 @@ public abstract class Entity : MonoBehaviour {
     protected Animator animator;
 
     protected bool stunned;
+    private bool isDead;
 
     protected virtual void Start ( ) {
         #region initialize stats
@@ -129,8 +130,6 @@ public abstract class Entity : MonoBehaviour {
 
         stunDur = spell.stunDuration;
 
-        print($"{name} has {c_hp} hp left.");
-
         spell.hitCDs.Add(new HitCD(transform, 1 / spell.hitFrequency));
     }
 
@@ -150,18 +149,20 @@ public abstract class Entity : MonoBehaviour {
     protected virtual void Die ( ) {
         KillCounter.killCount++;
 
+        isDead = true;
+
         print($"{name} is dead!");
         Destroy(gameObject);
     }
 
     protected virtual void OnTriggerStay2D (Collider2D collision) {
+        if (isDead) return;
+
         if (collision.CompareTag("Spell")) {
             Spell spell = collision.GetComponent<Spell>( );
 
             if (spell.CanHit(transform))
                 TakeHit(spell);
-
-            print($"{name} was hit by {spell.name}!");
         }
     }
 }

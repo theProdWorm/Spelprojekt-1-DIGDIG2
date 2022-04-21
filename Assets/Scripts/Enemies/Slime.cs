@@ -19,7 +19,10 @@ public class Slime : Entity {
     [HideInInspector]
     public float splitForceTimer;
 
-    private void Awake ( ) {
+    public GameObject slimePrefab;
+
+    protected override void Start ( ) {
+        base.Start( );
         partners = new Slime[2];
     }
 
@@ -37,14 +40,11 @@ public class Slime : Entity {
         if (fuseCD > 0)
             fuseCD -= Time.deltaTime;
 
-        if (Input.GetKeyDown(KeyCode.Return) && size > 0)
-            Split( );
-
         bool success = false;
-            if (fuseCD <= 0 && size < Size.large) success = TryFuse( );
-            else if (size == Size.large) success = TryConsume( );
-            
-            if (!success) Nibble( );
+        if (fuseCD <= 0 && size < Size.large) success = TryFuse( );
+        else if (size == Size.large) success = TryConsume( );
+
+        if (!success) Nibble( );
     }
 
     private bool TryConsume ( ) {
@@ -64,7 +64,7 @@ public class Slime : Entity {
                                    where Vector2.Distance(slime.transform.position, transform.position) <= scanRadius
                                    && slime.size == size && slime != this // same size and not self
                                    && slime.partners.All(x => x is null)  // no partners
-                                   && slime.fuseCD <= 0                   // can fuse
+                                   && slime.fuseCD <= 0                   // not on CD to fuse
                                    select slime).OrderByDescending(slime => Vector2.Distance(slime.transform.position, transform.position)).Reverse( ).ToArray( );
 
         if (partners.All(x => x is null)) {
@@ -112,13 +112,12 @@ public class Slime : Entity {
     /// Instantiates a bigger slime and destroys all slimes involved in the fusion.
     /// </summary>
     private void Fuse ( ) {
-        var fusion = Instantiate(gameObject).GetComponent<Slime>( );
+        var fusion = Instantiate(slimePrefab).GetComponent<Slime>( );
 
-        ++fusion.size;
+        fusion.size = size + 1;
         fusion.fuseCD = 5.0f;
 
         fusion.name = char.ToUpper($"{fusion.size}"[0]) + $"{fusion.size} slime".Substring(1);
-
 
         for (int i = 0; i < partners.Length; i++) {
             Destroy(partners[i].gameObject);
@@ -137,9 +136,9 @@ public class Slime : Entity {
 
             Vector2 forceVector = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * force;
 
-            var newSlime = Instantiate(gameObject).GetComponent<Slime>( );
+            var newSlime = Instantiate(slimePrefab).GetComponent<Slime>( );
 
-            --newSlime.size;
+            newSlime.size = size - 1;
 
             newSlime.i_splitForceVector = forceVector;
             newSlime.splitForceTimer = 1.0f;
@@ -148,12 +147,16 @@ public class Slime : Entity {
 
             newSlime.name = char.ToUpper($"{newSlime.size}"[0]) + $"{newSlime.size} slime".Substring(1);
         }
-
-        Destroy(gameObject);
     }
 
     protected override void Die ( ) {
         if (size > 0) Split( );
-        else base.Die( );
+
+        for (int i = 0; i < 2; i++) {
+            if (partners[i] != null)
+                partners[i].partners = new Slime[2];
+        }
+
+        base.Die( );
     }
 }

@@ -117,6 +117,7 @@ MonoBehaviour:
   partners: []
   i_splitForceVector: {x: 0, y: 0}
   splitForceTimer: 0
+  slimePrefab: {fileID: 5200396431475930088}
 --- !u!95 &3381695455164206356
 Animator:
   serializedVersion: 4

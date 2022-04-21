@@ -113,7 +113,7 @@ MonoBehaviour:
   c_hp: 0
   c_mana: 0
   maxJumpDistance: 5
-  jumpSpeedMod: 3
+  jumpSpeedMod: 2.4
   initialJumpCooldown: 4
   jumpSpell: {fileID: 5705899158450091246, guid: edc288cb00e0d8948991547509e4ece3, type: 3}
 --- !u!95 &4208360481388121623
