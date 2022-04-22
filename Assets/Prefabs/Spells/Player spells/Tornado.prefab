@@ -107,14 +107,13 @@ MonoBehaviour:
   slowDuration: 0
   stackSlow: 0
   stunDuration: 0
-  lifespan: 3
+  lifespan: 4
   dominantElement: 3
   combo: 0300000001000000
   deviation: 7
   frequency: 10
   speed: 3
   maxDistance: 10
-  knockback: 1
 --- !u!95 &7248714192979365229
 Animator:
   serializedVersion: 4
