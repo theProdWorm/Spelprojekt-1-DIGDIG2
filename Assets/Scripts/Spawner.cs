@@ -6,9 +6,11 @@ using UnityEngine;
 public class Spawner : MonoBehaviour {
     public GameObject[ ] enemyPrefabs;
 
-    private Player player;
+    public float spawnDistance;
 
     private float spawnTimer;
+
+    private Player player;
 
     private void Start ( ) {
         player = FindObjectOfType<Player>( );
@@ -25,13 +27,12 @@ public class Spawner : MonoBehaviour {
         }
 
         if (amountOfEnemies >= 7) return;
-        
-        Vector3 spawnPoint = new Vector3(RandPolar( ), RandPolar( )) * 9;
+
+        float spawnAngle = Random.Range(0, 2 * Mathf.PI);
+        Vector3 spawnPoint = new Vector3(Mathf.Cos(spawnAngle), Mathf.Sin(spawnAngle)) * spawnDistance;
 
         Instantiate(enemyPrefabs[Random.Range(0, enemyPrefabs.Length)], player.transform.position + spawnPoint, Quaternion.identity);
 
         spawnTimer = Random.Range(amountOfEnemies / 2f, amountOfEnemies);
     }
-
-    private int RandPolar ( ) => Random.Range(1, 2) == 1 ? -1 : 1;
 }

@@ -21,9 +21,21 @@ public class Slime : Entity {
 
     public GameObject slimePrefab;
 
+    private void OnEnable ( ) {
+        var slimeResources = FindObjectOfType<SlimeResources>( );
+        var renderer = GetComponent<SpriteRenderer>( );
+
+        renderer.sprite = slimeResources.slimeSprites[(int) size];
+    }
+
     protected override void Start ( ) {
         base.Start( );
         partners = new Slime[2];
+
+        animator.SetInteger("size", (int) size);
+
+        var _name = $"{size} Slime";
+        name = _name[0].ToString( ).ToUpper( ) + _name[1..];
     }
 
     protected override void Update ( ) {
