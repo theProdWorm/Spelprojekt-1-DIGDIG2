@@ -100,19 +100,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb180ef2d73cd844c9bbd71bc349fdd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damagePerHit: 2
-  hitFrequency: 4
-  manaCost: 3
-  slowAmount: 0
-  slowDuration: 0
+  damagePerHit: 3
+  hitFrequency: 10
+  manaCost: 6
+  slowAmount: 5
+  slowDuration: 0.1
   stackSlow: 0
   stunDuration: 0
   lifespan: 4
   dominantElement: 3
   combo: 0300000001000000
-  deviation: 7
-  frequency: 10
-  speed: 3
+  deviation: 12
+  frequency: 18
+  speed: 3.5
   maxDistance: 10
 --- !u!95 &7248714192979365229
 Animator:

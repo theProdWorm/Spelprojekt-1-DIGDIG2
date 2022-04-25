@@ -145,9 +145,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 500cfd7748fdc564bae8a10514dd518d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damagePerHit: 0.4
+  damagePerHit: 0.325
   hitFrequency: 20
-  manaCost: 2
+  manaCost: 4
   slowAmount: 0
   slowDuration: 0
   stackSlow: 0

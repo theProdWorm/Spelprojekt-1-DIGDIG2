@@ -14,7 +14,7 @@ public class Pablo : Entity {
         var canvas = FindObjectOfType<Canvas>( );
         spawnText = Instantiate(spawnTextPrefab, canvas.transform);
 
-        spawnText.enabled = true;
+        FindObjectOfType<Arrow>( ).pablo = transform;
 
         spawnTextTimer = 10;
     }
