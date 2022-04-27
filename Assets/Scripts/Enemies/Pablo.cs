@@ -16,7 +16,7 @@ public class Pablo : Entity {
 
         FindObjectOfType<Arrow>( ).pablo = transform;
 
-        spawnTextTimer = 10;
+        spawnTextTimer = 8;
     }
 
     protected override void Update ( ) {

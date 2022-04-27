@@ -13,7 +13,7 @@ public class HitCD {
 }
 
 public abstract class Spell : MonoBehaviour {
-    [Tooltip("Some spells hit multiple times. This describes damage done per hit, not in total.")]
+    [Tooltip("This describes damage done per hit, not in total.")]
     public float damagePerHit;
 
     [Tooltip("The maximum amount of times this spell can deal damage to a single enemy in one second.")]

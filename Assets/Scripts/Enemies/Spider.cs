@@ -25,7 +25,13 @@ public class Spider : Entity {
 
     protected override void Update ( ) {
         base.Update( );
-        if (stunned) return;
+        if (stunned) {
+            transform.rotation = LMTools.GetRotation(Direction.left);
+            return;
+        }
+        else {
+            transform.rotation = LMTools.GetRotation(Direction.none);
+        }
 
         if (jumpCooldown > 0) {
             jumpCooldown -= Time.deltaTime;

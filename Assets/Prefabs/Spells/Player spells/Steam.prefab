@@ -148,9 +148,9 @@ MonoBehaviour:
   damagePerHit: 0.325
   hitFrequency: 20
   manaCost: 4
-  slowAmount: 0
-  slowDuration: 0
-  stackSlow: 0
+  slowAmount: 2
+  slowDuration: 0.4
+  stackSlow: 1
   stunDuration: 0
   lifespan: 1
   dominantElement: 0

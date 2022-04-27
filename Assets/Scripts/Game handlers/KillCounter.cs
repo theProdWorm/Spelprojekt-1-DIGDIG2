@@ -16,7 +16,7 @@ public class KillCounter : MonoBehaviour {
     private void Update ( ) {
         tmp = GetComponent<TMP_Text>( );
 
-        tmp.text = "Kill count: " + killCount;
+        tmp.text = "Kill count: " + (killCount == 69 ? "nice" : killCount.ToString( ));
 
         if (killCount >= pabloKillReq && !pabloSpawned)
             SpawnPablo( );

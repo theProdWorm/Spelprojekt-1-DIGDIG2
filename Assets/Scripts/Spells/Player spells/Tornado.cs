@@ -6,7 +6,6 @@ public class Tornado : Spell {
     public float deviation;
     public float frequency;
     public float speed;
-    public float maxDistance;
 
     private float angle = 0;
 
