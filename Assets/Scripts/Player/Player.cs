@@ -135,7 +135,7 @@ public class Player : Entity {
         }
     }
 
-    private bool KeyDown (KeyCode[ ] keyArray) {
+    public static bool KeyDown (KeyCode[ ] keyArray) {
         for (int i = 0; i < keyArray.Length; i++) {
             if (Input.GetKeyDown(keyArray[i]))
                 return true;
@@ -143,7 +143,7 @@ public class Player : Entity {
         return false;
     }
 
-    private bool KeyUp (KeyCode[ ] keyArray) {
+    public static bool KeyUp (KeyCode[ ] keyArray) {
         for (int i = 0; i < keyArray.Length; i++) {
             if (Input.GetKeyUp(keyArray[i]))
                 return true;

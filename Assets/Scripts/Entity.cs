@@ -16,7 +16,6 @@ public abstract class Entity : MonoBehaviour {
     public float i_hp;
     public float i_mana;
     public float i_manaReg;
-    public float i_haste;
     public float i_speed;
 
     public float i_waterRes;
@@ -32,8 +31,8 @@ public abstract class Entity : MonoBehaviour {
     [HideInInspector]
     public float c_mana;
     protected float c_manaReg;
-    protected float c_haste;
-    protected float c_speed;
+    [HideInInspector]
+    public float c_speed;
 
     protected float c_waterRes;
     protected float c_earthRes;
@@ -56,7 +55,6 @@ public abstract class Entity : MonoBehaviour {
         c_hp = i_hp;
         c_mana = i_mana;
         c_manaReg = i_manaReg;
-        c_haste = i_haste;
         c_speed = i_speed;
 
         c_waterRes = i_waterRes;
